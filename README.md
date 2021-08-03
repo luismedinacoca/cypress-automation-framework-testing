@@ -1,9 +1,7 @@
-Lecture025 - Visit & Click commands
+Lecture026 - Click Options
 
-1. adding more cypress code:
+1. for some locators or selectors which are quite difficult to get focus on them:
 ```javascript
-cy.visit("url");
-cy.get("locator").click();
-cy.click();
+cy.get("locator").click({force: true});
 ```
  
