@@ -1,12 +1,13 @@
-Lecture018 - Keeping Cypress Up to Date
+Lecture024 - Command activation & inspecting specific Cypress
 
-1. click on Update
-1. a windows opens up
-1. to get the changlog link: 
-[Cypress version] (https://docs.cypress.io/guides/references/changelog)
-1. command to update cypress version: 
-    ```bash
-    npm install --save-dev cypress@4.12.1
-    ```
-[API - cypress](https://docs.cypress.io/api/commands/click)    
-
+1. adding the first command:
+```bash
+/// <reference types="Cypress" />
+```
+1. adding describe()
+1. adding it()
+1. adding first cypress code:
+```javascript
+cy.click
+```
+ 
