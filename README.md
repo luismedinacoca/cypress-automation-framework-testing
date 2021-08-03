@@ -1,7 +1,7 @@
-Lecture026 - Click Options
+Lecture027 - Type command
 
-1. for some locators or selectors which are quite difficult to get focus on them:
+1. for enter any input or message inside a textfield:
 ```javascript
-cy.get("locator").click({force: true});
+cy.get("locator").type("message or any input");
 ```
  
