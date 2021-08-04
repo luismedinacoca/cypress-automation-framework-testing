@@ -1,4 +1,4 @@
-Lecture027 - Type command
+Lecture028 - Challenge Overview
 
 1. for enter any input or message inside a textfield:
 ```javascript

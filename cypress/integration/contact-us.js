@@ -5,6 +5,9 @@ describe("Test Contact Us form via WebdriverUni", () => {
         //cypress code
         cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
         cy.get('[name="first_name"]').type("Joe Francesco");
+        cy.get('[name="last_name"]').type('Mastroopiero');
+        cy.get('[name="email"]').type("joefran@mastropiero.com");
+        cy.get('textarea.feedback-input').type("Text area will be completed in the future....");
+        cy.get('[type="submit"]').click();
     })
-
 })
