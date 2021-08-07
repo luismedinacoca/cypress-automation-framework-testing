@@ -1,42 +1,97 @@
-Lecture031 - Targering individual tests via Mocha
+Lecture035 - Practical in Depth Look into Selectors
 
-1. happy path: contains
-  1. name
-  1. lastname
-  1. email
-  1. commatns
-  1. submit
-```javascript
-   it("Should NOT be able to submit a successful submission via contact us form as all fields are required", () => {
-        //cypress code
-        cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
-        cy.get('[name="first_name"]').type("Joe Francesco");
-        cy.get('[name="last_name"]').type('Mastroopiero');
-        cy.get('[name="email"]').type("joefran@mastropiero.com");
-        cy.get('textarea.feedback-input').type("Text area will be completed in the future....");
-        cy.get('[type="submit"]').click();
-    });
+1. changing from:
+```
+cypress
+│   README.md
+|   cypress.json
+│   package.json    
+│   package-lock.json  
+│   .gitignore      
+│
+└───fixtures
+│   │   file011.txt
+│   │   file012.txt
+│   │   ...
+│   
+└───integration
+│   │   contact-us.js
+│   └───examples
+│       │   file111.txt
+│       │   file112.txt
+│       │   ...    
+```
+to
+
+```
+cypress
+│   README.md
+|   cypress.json
+│   package.json    
+│   package-lock.json  
+│   .gitignore      
+│
+└───fixtures
+│   │   file011.txt
+│   │   file012.txt
+│   │   ...
+│   
+└───integration
+│   │   contact-us.js
+│   └───automation-test-store
+│   |   │   contact-us.js
+│   └───examples
+│       │   file111.txt
+│       │   file112.txt
+│       │   ... 
+│   └───webdriver-uni
+│       │   contact-us.js
 ```
 
-
-1. 2nd test - negative test: contains
-  1. name
-  1. lastname
-  1. commatns
-  1. submit
+1. second contact-us.js should contains:
 ```javascript
-   it.only("Should NOT be able to submit a successful submission via contact us form as all fields are required", () => {
+/// <reference types="cypress" />
+
+describe("Test Contact Us from via Automation Test Store", () => {
+    it("Should be able to submit a successful submission via contact us form", () => {
         //cypress code
-        cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
-        cy.get('[name="first_name"]').type("Joe Francesco");
-        cy.get('[name="last_name"]').type('Mastroopiero');
-        cy.get('textarea.feedback-input').type("Text area will be completed in the future....");
-        cy.get('[type="submit"]').click();
+        cy.visit('https://automationteststore.com');
     });
+})
 ``` 
-
-1. Only second test will be executed: it.only 
+1. execute the test. you will see many xhr in the test runner - time path. So we need to add the following code 
 ```javascript
-   it.only("Should NOT be able to submit a successful submission via contact us form as all fields are required", () => {
-    });
+Cypress.Server.defaults({
+    whitelist: (xhr) => {
+        return true;
+    }
+})
 ``` 
+inside 
+```
+cypress
+│   README.md
+|   cypress.json
+│   package.json    
+│   package-lock.json  
+│   .gitignore 
+└───fixtures
+│   │   file011.txt
+│   │   file012.txt
+│   │   ...
+│   
+└───integration
+│   │   file011.txt
+│   │   file012.txt
+│   │   ...
+│
+└───support
+│   │   command.js
+│   │   index.js (*)
+└───node_modules
+│   │   file011.txt
+│   │   file012.txt
+│   │   ...
+│
+```
+
