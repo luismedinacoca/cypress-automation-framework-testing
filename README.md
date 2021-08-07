@@ -1,4 +1,4 @@
-Lecture030 - Creating our Second test (Negative Test)
+Lecture031 - Targering individual tests via Mocha
 
 1. happy path: contains
   1. name
@@ -25,12 +25,18 @@ Lecture030 - Creating our Second test (Negative Test)
   1. commatns
   1. submit
 ```javascript
-   it("Should NOT be able to submit a successful submission via contact us form as all fields are required", () => {
+   it.only("Should NOT be able to submit a successful submission via contact us form as all fields are required", () => {
         //cypress code
         cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
         cy.get('[name="first_name"]').type("Joe Francesco");
         cy.get('[name="last_name"]').type('Mastroopiero');
         cy.get('textarea.feedback-input').type("Text area will be completed in the future....");
         cy.get('[type="submit"]').click();
+    });
+``` 
+
+1. Only second test will be executed: it.only 
+```javascript
+   it.only("Should NOT be able to submit a successful submission via contact us form as all fields are required", () => {
     });
 ``` 
