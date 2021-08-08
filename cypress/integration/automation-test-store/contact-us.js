@@ -8,6 +8,8 @@ describe("Test Contact Us from via Automation Test Store", () => {
         cy.get("a[href$='contact']").click();
         cy.get('#ContactUsFrm_first_name').type('John McDowell');
         cy.get('#ContactUsFrm_email').type('johnmcdowell@example.com');
+        //assertion relating an attribute for email:
+        cy.get('#ContactUsFrm_email').should('have.attr', 'name', 'email');
         cy.get('#ContactUsFrm_enquiry').type('Do you provide additional discount on bulk orders?');
         cy.get("button[title='Submit']").click();
         //assertion from the text:

@@ -1,10 +1,13 @@
-Lecture046 - Adding assertions to our Existing Tests
+Lecture047 - Chai JQuery
 1. adding an assertion:
-
-```javascript
-cy.get('.mb40 > :nth-child(3)').should('have.text', 'Your enquiry has been successfully sent to the store owner!');
+with an element as follows:
+```html
+<div class="input-group col-md-7 ">
+	<input type="text" name="email" id="ContactUsFrm_email" value="" placeholder="" class="form-control ">
+<span class="input-group-addon"><span class="required">*</span></span>
+</div>
 ```
-
-see on this pages:
-[Chai Assertion Library](http://www.chaijs.com)
-[Assertions](https://docs.cypress.io/guides/references/assertions)
+we can verify with an assertion as follows:
+```javascript
+cy.get('#ContactUsFrm_email').should('have.attr', 'name', 'email');
+```
