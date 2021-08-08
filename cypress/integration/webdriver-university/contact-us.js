@@ -1,11 +1,11 @@
 /// <reference types="cypress" />
 
 describe("Test Contact Us form via WebdriverUni", () => {
-    it.only("Should be able to submit a successful submission via contact us form", () => {
+    it("Should be able to submit a successful submission via contact us form", () => {
         //cypress code
         cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
         cy.get('[name="first_name"]').type("Joe Francesco");
-        cy.get('[name="last_name"]').type('Mastroopiero');
+        cy.get('[name="last_name"]').type('Mastropiero');
         cy.get('[name="email"]').type("joefran@mastropiero.com");
         cy.get('textarea.feedback-input').type("Text area will be completed in the future....");
         cy.get('[type="submit"]').click();
@@ -17,8 +17,11 @@ describe("Test Contact Us form via WebdriverUni", () => {
         //cypress code
         cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
         cy.get('[name="first_name"]').type("Joe Francesco");
-        cy.get('[name="last_name"]').type('Mastroopiero');
+        cy.get('[name="last_name"]').type('Mastropiero');
         cy.get('textarea.feedback-input').type("Text area will be completed in the future....");
         cy.get('[type="submit"]').click();
+        //adding assertion with contains method:
+        cy.get('body').contains('Error: all fields are required');
+        cy.get('body').contains('Error: Invalid email address');
     });
 })
