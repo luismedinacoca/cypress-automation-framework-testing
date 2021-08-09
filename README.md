@@ -1,8 +1,21 @@
-Lecture050 - Cypress contains method
-1. adding an assertion:
-we can verify with an assertion using contains method:
+Lecture051 - cy.document()
+1. a kind of assertion for <head> tag only:
+we need to verify whether charset = "UTF-8":
+```html
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free Online (Interaction) Training Platform. Enhance yours skills within Automation Testing (Selenium WebDriver), Complicated Tasks &amp; Framework Design…">
+    <meta name="author" content="Gianni Bruno">
+    <meta name="keywords" content="WebDriver University, WebDriver, Webdriver, Selenium, Selenium WebDriver, Automation Testing, Automation Testing Platform, Java, Jenkins, Cucumber, BDD, TestNG, JUNit">
+
+  <title>WebDriver | Contact Us</title>
+  <script>...</script>
+  
+```
+
 ```javascript
-    //adding assertion with contains method:
-    cy.get('body').contains('Error: all fields are required');
-    cy.get('body').contains('Error: Invalid email address');
+    //cy.document for <head> properties
+    cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
 ```

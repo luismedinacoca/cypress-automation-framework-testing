@@ -4,6 +4,8 @@ describe("Test Contact Us form via WebdriverUni", () => {
     it("Should be able to submit a successful submission via contact us form", () => {
         //cypress code
         cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
+        //cy.document for <head> properties
+        cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
         cy.get('[name="first_name"]').type("Joe Francesco");
         cy.get('[name="last_name"]').type('Mastropiero');
         cy.get('[name="email"]').type("joefran@mastropiero.com");
