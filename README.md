@@ -1,4 +1,4 @@
-Lecture051 - cy.document()
+Lecture052 - cy.title()
 1. a kind of assertion for <head> tag only:
 we need to verify whether charset = "UTF-8":
 ```html
@@ -12,10 +12,10 @@ we need to verify whether charset = "UTF-8":
 
   <title>WebDriver | Contact Us</title>
   <script>...</script>
-  
+</head>  
 ```
 
 ```javascript
-    //cy.document for <head> properties
-    cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
+    //cy.title:
+    cy.title().should('include', 'WebDriver | Contact Us');
 ```
