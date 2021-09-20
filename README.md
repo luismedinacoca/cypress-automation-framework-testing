@@ -1,9 +1,22 @@
-# Lecture053 - cy.url()
-1. a kind of assertion for url:
-[Contact-us WebdriverUniversity](https://webdriveruniversity.com/Contact-Us/contactus.html)
-
-## url: "https://webdriveruniversity.com/Contact-Us/contactus.html"
+# Lecture054 - Headed Electron Browser
+1. running in the terminal the following command
 ```javascript
-    //cy.title:
-    cy.url().should('include', 'contactus');
+$ ./node_modules/.bin/cypress run --headed
 ```
+
+run many commands:
+```javascript
+$ npm install -D cypress-xpath 
+```
+
+verify inside package.json:
+```javascript
+"cypress-xpath": "^1.6.2" 
+```
+was added
+
+added:
+```javascript
+require('cypress-xpath') 
+```
+inside project's cypress/support/index.js
