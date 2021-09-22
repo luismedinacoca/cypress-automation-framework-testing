@@ -14,5 +14,7 @@ describe("Test Contact Us from via Automation Test Store", () => {
         cy.get("button[title='Submit']").click();
         //assertion from the text:
         cy.get('.mb40 > :nth-child(3)').should('have.text', 'Your enquiry has been successfully sent to the store owner!');
+        //non cypress commands:
+        console.log("Test has completed");
     });
 })
