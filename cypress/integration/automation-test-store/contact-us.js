@@ -5,7 +5,9 @@ describe("Test Contact Us from via Automation Test Store", () => {
         //cypress code
         cy.visit("https://automationteststore.com");
         //instead of having a selector related to classes which can change...
-        cy.get("a[href$='contact']").click();
+        cy.get("a[href$='contact']").click().then(function(linktext){
+            cy.log(">>>> Clicked on link using text: " + linktext.text());
+        });
         cy.get('#ContactUsFrm_first_name').type('John McDowell');
         cy.get('#ContactUsFrm_email').type('johnmcdowell@example.com');
         //assertion relating an attribute for email:

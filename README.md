@@ -1,9 +1,8 @@
-# Lecture070 - Then command
+# Lecture072 - CY.LOG
 
-1. non a cypress commands, it will execute first:
+1. cypress commands for cy.log:
 ```javascript
-    cy.get(".prdocutname").contains("Skinsheen Bronzer Stick").click().then(function(itemHeaderText){
-            console.log("Selected the following item: " + itemHeaderText.text());
+    cy.get("a[href$='contact']").click().then(function(linktext){
+        cy.log(">>>> Clicked on link using text: " + linktext.text());
     });
-    console.log("Test-123"); //it's not a cypress code so this will execute first
 ```
