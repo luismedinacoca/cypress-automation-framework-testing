@@ -1,26 +1,32 @@
-# Lecture074 - VARIABLES PART2/4
+# Lecture076 - VARIABLES PART4/4
 
-1. cypress commands for variable declaration:
+1. common mistake when declare variable/const:
 ```javascript
-    it("Navigating to specific product pages", () => {
+    it.only("Navigating to specific product pages", () => {
         //cypress code
         cy.visit("https://automationteststore.com");
-        //for variables this approach is not recommended:
+        cy.get("a[href*='category&path=']").contains("Makeup").click(); 
 
-        //the following code will pass:
-        const makeupLink = cy.get("a[href*='category&path=']").contains("Makeup"); 
-        makeupLink.click();
-        const skincareLink = cy.get("a[href*='category&path=']").contains("Skincare");  
-        skincareLink.click();
+        //this code will fail => declaring variable or const
+        const header = cy.get("h1 .maintext");
+        //cy.log(header);
+        cy.log(header.text()); //bring an object
+    });
+```
 
-        //the following code fails:
-        const makeupLink = cy.get("a[href*='category&path=']").contains("Makeup"); 
-        const skincareLink = cy.get("a[href*='category&path=']").contains("Skincare");  
-        makeupLink.click();
-        skincareLink.click();
+2. best approach using promises:
+```javascript
+    it.only("Navigating to specific product pages", () => {
+        //cypress code
+        cy.visit("https://automationteststore.com");
+        cy.get("a[href*='category&path=']").contains("Makeup").click(); 
 
-        //recommended approach:
-        cy.get("a[href*='category&path=']").contains("Skincare");
-        cy.get("a[href*='category&path=']").contains("Makeup"); 
+        //using promises:
+        cy.get("h1 .maintext").then(($headerText) => {
+            //variable or const declaration:
+            const headerText = $headerText.text();
+            cy.log("Found header text: " + headerText);
+            expect(headerText).is.eq('Makeup');
+        })
     });
 ```
