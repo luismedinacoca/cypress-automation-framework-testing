@@ -22,7 +22,7 @@ describe("Verifying cariables, cypress commands and jquery commands", () => {
         cy.get("a[href*='category&path=']").contains("Makeup"); 
     });
 
-    it.only("Navigating to specific product pages", () => {
+    it("Navigating to specific product pages", () => {
         //cypress code
         cy.visit("https://automationteststore.com");
         cy.get("a[href*='category&path=']").contains("Makeup").click(); 
@@ -39,5 +39,25 @@ describe("Verifying cariables, cypress commands and jquery commands", () => {
             cy.log("Found header text: " + headerText);
             expect(headerText).is.eq('Makeup');
         })
+    });
+
+    it.only("Navigating to specific product pages", () => {
+        //cypress code
+        cy.visit("https://automationteststore.com/index.php?rt=content/contact");
+        
+        //use cypress command and chaining
+        cy.contains('#ContactUsFrm', 'Contact Us Form').find('#field_11').should('contain', 'First name');
+
+        //JQuery Approach
+        cy.contains('#ContactUsFrm', 'Contact Us Form').then(text => {
+            const firstNametext = text.find('#field_11').text();
+            expect(firstNametext).to.contain('First name');
+
+            //embedded commands:
+            cy.get('#field_11').then(fnText => {
+                cy.log(fnText.text());   //get or obtain the text
+                cy.log(fnText);         //get or obtain the selector  //<div class="form-group form_field" id="field_11">
+            });
+        });
     });
 })

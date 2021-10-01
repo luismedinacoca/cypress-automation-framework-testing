@@ -1,32 +1,28 @@
-# Lecture076 - VARIABLES PART4/4
+# Lecture078 - VARIABLES, PROMISES AND NESTED CLOSURES
 
-1. common mistake when declare variable/const:
+1. cypress command chaining:
 ```javascript
-    it.only("Navigating to specific product pages", () => {
-        //cypress code
-        cy.visit("https://automationteststore.com");
-        cy.get("a[href*='category&path=']").contains("Makeup").click(); 
+    cy.contains('#ContactUsFrm', 'Contact Us Form').find('#field_11').should('contain', 'First name');
+```
 
-        //this code will fail => declaring variable or const
-        const header = cy.get("h1 .maintext");
-        //cy.log(header);
-        cy.log(header.text()); //bring an object
+2. JQuery using promises:
+```javascript
+    cy.contains('#ContactUsFrm', 'Contact Us Form').then(text => {
+        const firstNametext = text.find('#field_11').text();
+        expect(firstNametext).to.contain('First name');
     });
 ```
 
-2. best approach using promises:
+3. Embedded commands:
 ```javascript
-    it.only("Navigating to specific product pages", () => {
-        //cypress code
-        cy.visit("https://automationteststore.com");
-        cy.get("a[href*='category&path=']").contains("Makeup").click(); 
+    cy.contains('#ContactUsFrm', 'Contact Us Form').then(text => {
+        const firstNametext = text.find('#field_11').text();
+        expect(firstNametext).to.contain('First name');
 
-        //using promises:
-        cy.get("h1 .maintext").then(($headerText) => {
-            //variable or const declaration:
-            const headerText = $headerText.text();
-            cy.log("Found header text: " + headerText);
-            expect(headerText).is.eq('Makeup');
-        })
+        //embedded commands:
+        cy.get('#field_11').then(fnText => {
+            cy.log(fnText.text()); 
+            cy.log(fnText); 
+        });
     });
 ```
