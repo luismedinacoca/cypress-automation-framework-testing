@@ -1,4 +1,4 @@
-# Lecture081 - ALIAS AND INVOKE
+# Lecture085 - ALIAS AND INVOKE - SOLUTION
 
 ```
 cypress
@@ -25,10 +25,70 @@ cypress
 
 1. having the following html code:
 ```html
-<div class="col-md-3 col-sm-6 col-xs-12">
-	<div class="fixed_wrapper">
-		<div class="fixed">
-			<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;path=52&amp;product_id=69" title="Seaweed Conditioner">Seaweed Conditioner</a>
+<div class="thumbnails list-inline">
+	<div class="col-md-3 col-sm-6 col-xs-12">
+    	<div class="fixed_wrapper">
+			<div class="fixed">
+				<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;product_id=50" title="Skinsheen Bronzer Stick">Skinsheen Bronzer Stick</a>
+			</div>
+		</div>
+		<div class="thumbnail" style="">
+			<div class="pricetag jumbotron">
+				<div class="price">
+			    	<div class="oneprice">$29.50</div>
+			    </div>
+		    </div>
+        </div>
+	</div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+    	<div class="fixed_wrapper">
+			<div class="fixed">
+				<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;product_id=51" title="BeneFit Girl Meets Pearl">BeneFit Girl Meets Pearl</a>
+			</div>
+		</div>
+
+        <div class="thumbnail" style="">
+        	<div class="blurb"></div>
+			<div class="pricetag jumbotron">
+				<div class="price">
+					<div class="pricenew">$19.00</div>
+					<div class="priceold">$30.00</div>
+				</div>
+			</div>
+		</div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+		<div class="fixed_wrapper">
+			<div class="fixed">
+				<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;product_id=52" title="Benefit Bella Bamba">Benefit Bella Bamba</a>
+			</div>
+        </div>
+
+        <div class="thumbnail" style="">
+            <div class="blurb"></div>
+				<div class="pricetag jumbotron">
+					<div class="price">
+						<div class="oneprice">$28.00</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+		<div class="fixed_wrapper">
+			<div class="fixed">
+				<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;product_id=53" title="Tropiques Minerale Loose Bronzer">Tropiques Minerale Loose Bronzer</a>
+			</div>
+		</div>
+
+		<div class="thumbnail" style="">
+			<div class="pricetag jumbotron">
+				<div class="price">
+					<div class="oneprice">$38.50</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -38,25 +98,13 @@ cypress
 alias "as()"
 
 ```javascript
-    it("Validate a specific hair care product", () => {
-        cy.visit("https://automationteststore.com");
-        cy.get("a[href*='category&path=']").contains("Hair Care").click();
-
-        cy.get('.fixed_wrapper .prdocutname').eq(0).invoke('text').as('productThumbnail');
-        cy.get('@productThumbnail').its('length').should('be.gt', 5);
-        cy.get('@productThumbnail').should('include', 'weed Condit');
-    });
-```
-
-3. see that invoke('text') is geeting the text from the selector:
-```javascript
-    cy.get('.fixed_wrapper .prdocutname').eq(0).invoke('text')
-```
-this command is getting
-```html
-<div class="fixed_wrapper">
-	<div class="fixed">
-		<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;path=52&amp;product_id=69" title="Seaweed Conditioner">Seaweed Conditioner</a>
-	</div>
-</div>
+it("Validate product thumbnail", () => {
+    cy.visit("https://automationteststore.com/");
+    //.thumbnail webelement as @productThumbnail  Alias
+    cy.get('.thumbnail').as('productThumbnail');
+    //verifying the length of @productThumbnail elements
+    cy.get('@productThumbnail').should('have.length', 16);
+    //verifying the element with attribute title and its value is 'Add to Cart'
+    cy.get('@productThumbnail').find('.productcart').invoke('attr', 'title').should('include', 'Add to Cart');
+})
 ```
