@@ -18,6 +18,15 @@ describe("Alias and Invoke", () => {
         cy.get('@productThumbnail').should('have.length', 16);
         //verifying the element with attribute title and its value is 'Add to Cart'
         cy.get('@productThumbnail').find('.productcart').invoke('attr', 'title').should('include', 'Add to Cart');
-    })
+    });
+
+    it.only("Calculate Total of normal and sale products", () => {
+        cy.visit("https://automationteststore.com/");
+        cy.get('.thumbnail').as('productThumbnail');
+        cy.get('@productThumbnail').find('.oneprice').each(($el, index, $list) => {
+            //invoke the text
+            cy.log($el.text());
+        })
+    });
 
 })
