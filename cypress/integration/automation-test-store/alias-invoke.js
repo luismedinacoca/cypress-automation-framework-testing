@@ -23,9 +23,19 @@ describe("Alias and Invoke", () => {
     it.only("Calculate Total of normal and sale products", () => {
         cy.visit("https://automationteststore.com/");
         cy.get('.thumbnail').as('productThumbnail');
-        cy.get('@productThumbnail').find('.oneprice').each(($el, index, $list) => {
+        //cy.get('@productThumbnail').find('.oneprice').each(($el, index, $list) => {
             //invoke the text
-            cy.log($el.text());
+            //cy.log($el.text());
+        //})
+
+        //alias to item price:
+        cy.get('@productThumbnail').find('.oneprice').invoke('text').as('itemPrice');
+        cy.get('@itemPrice').then($linkText => {
+            var itemPrice = $linkText.split('$');
+            var i;
+            for(i = 0; i < itemPrice.length; i++){
+                cy.log(itemPrice[i]);        
+            }
         })
     });
 

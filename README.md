@@ -1,4 +1,4 @@
-# Lecture086 - ALIAS, INVOKE, VARIABLES & ITERATION THROUGH DATA - PART1/5
+# Lecture087 - ALIAS, INVOKE, VARIABLES & ITERATION THROUGH DATA - PART2/5
 
 ```
 cypress
@@ -94,16 +94,14 @@ cypress
 </div>
 ```
 
-2. alias and invoke:
-alias "as()"
+2. alias, invoke, iteretion with a for loop and logs:
 
 ```javascript
-it("Calculate Total of normal and sale products", () => {
-    cy.visit("https://automationteststore.com/");
-    cy.get('.thumbnail').as('productThumbnail');
-    cy.get('@productThumbnail').find('.oneprice').each(($el, index, $list) => {
-        //invoke the text
-        cy.log($el.text());
-    })
+cy.get('@productThumbnail').find('.oneprice').invoke('text').as('itemPrice');    cy.get('@itemPrice').then($linkText => {
+    var itemPrice = $linkText.split('$');
+    var i;
+    for(i = 0; i < itemPrice.length; i++){
+        cy.log(itemPrice[i]);        
+    }
 })
 ```
