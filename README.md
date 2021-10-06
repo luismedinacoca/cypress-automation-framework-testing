@@ -1,4 +1,4 @@
-# Lecture087 - ALIAS, INVOKE, VARIABLES & ITERATION THROUGH DATA - PART2/5
+# Lecture088 - ALIAS, INVOKE, VARIABLES & ITERATION THROUGH DATA - PART3/5
 
 ```
 cypress
@@ -92,16 +92,57 @@ cypress
 		</div>
 	</div>
 </div>
+
+<div class="col-md-3 col-sm-6 col-xs-12">
+	<div class="fixed_wrapper">
+		<div class="fixed">
+			<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;product_id=67" title="Flash Bronzer Body Gel">Flash Bronzer Body Gel</a>
+		</div>
+	</div>
+
+	<div class="thumbnail">
+		<div class="blurb"></div>
+		<div class="pricetag jumbotron">
+			<span class="nostock">Out of Stock</span>
+			<div class="price">
+				<div class="pricenew">$29.00</div>
+				<div class="priceold">$34.50</div>
+			</div>
+		</div>
+	</div>
+</div>
 ```
 
 2. alias, invoke, iteretion with a for loop and logs:
 
 ```javascript
-cy.get('@productThumbnail').find('.oneprice').invoke('text').as('itemPrice');    cy.get('@itemPrice').then($linkText => {
-    var itemPrice = $linkText.split('$');
-    var i;
-    for(i = 0; i < itemPrice.length; i++){
-        cy.log(itemPrice[i]);        
-    }
-})
+    it.only("Calculate Total of normal and sale products", () => {
+        cy.visit("https://automationteststore.com/");
+        cy.get('.thumbnail').as('productThumbnail');
+        //cy.get('@productThumbnail').find('.oneprice').each(($el, index, $list) => {
+            //invoke the text
+            //cy.log($el.text());
+        //})
+
+        //alias to item price:
+        cy.get('@productThumbnail').find('.oneprice').invoke('text').as('itemPrice');
+        cy.get('@productThumbnail').find('.pricenew').invoke('text').as('saleItemPrice');
+
+        var itemsTotal = 0;
+        cy.get('@itemPrice').then($linkText => {
+            var itemsPriceTotal = 0;
+            var itemPrice = $linkText.split('$');
+            var i;
+            for(i = 0; i < itemPrice.length; i++){
+                cy.log(itemPrice[i]);
+                itemsPriceTotal += Number(itemPrice[i]);           
+            }
+            itemsTotal += itemsPriceTotal;
+            cy.log('Non sale price item total: ' + itemsPriceTotal);
+        })
+
+        cy.get('@saleItemPrice').then($linkText => {
+            var saleItemPrice = $linkText.split('$');
+        })
+    });
 ```

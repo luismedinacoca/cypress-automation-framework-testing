@@ -30,12 +30,23 @@ describe("Alias and Invoke", () => {
 
         //alias to item price:
         cy.get('@productThumbnail').find('.oneprice').invoke('text').as('itemPrice');
+        cy.get('@productThumbnail').find('.pricenew').invoke('text').as('saleItemPrice');
+
+        var itemsTotal = 0;
         cy.get('@itemPrice').then($linkText => {
+            var itemsPriceTotal = 0;
             var itemPrice = $linkText.split('$');
             var i;
             for(i = 0; i < itemPrice.length; i++){
-                cy.log(itemPrice[i]);        
+                cy.log(itemPrice[i]);
+                itemsPriceTotal += Number(itemPrice[i]);           
             }
+            itemsTotal += itemsPriceTotal;
+            cy.log('Non sale price item total: ' + itemsPriceTotal);
+        })
+
+        cy.get('@saleItemPrice').then($linkText => {
+            var saleItemPrice = $linkText.split('$');
         })
     });
 
