@@ -43,11 +43,22 @@ describe("Alias and Invoke", () => {
             }
             itemsTotal += itemsPriceTotal;
             cy.log('Non sale price item total: ' + itemsPriceTotal);
-        })
+        });
 
         cy.get('@saleItemPrice').then($linkText => {
+            var saleItemsPrice = 0;
             var saleItemPrice = $linkText.split('$');
+            var i;
+            for(i = 0; i < saleItemPrice.length; i++){
+                cy.log(saleItemPrice[i]);
+                saleItemsPrice += Number(saleItemPrice[i]);           
+            };
+            itemsTotal += saleItemsPrice;
+            cy.log("Sale price items total: " + saleItemsPrice);
+        })
+        .then(() => {
+            cy.log("The total price of all products: " + itemsTotal);
+            expect(itemsTotal).to.equal(654.1); 
         })
     });
-
 })
