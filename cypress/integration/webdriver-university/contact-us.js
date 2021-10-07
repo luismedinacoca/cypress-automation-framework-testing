@@ -1,10 +1,13 @@
 /// <reference types="cypress" />
 
 describe("Test Contact Us form via WebdriverUni", () => {
-    it.only("Should be able to submit a successful submission via contact us form", () => {
+    it("Should be able to submit a successful submission via contact us form", () => {
         //cypress code
-        cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
-        
+        //cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
+        cy.visit('http://webdriveruniversity.com');
+        cy.get('#contact-us').click({force:true});
+
+
         //cy.document for <head> properties
         cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
 
@@ -25,7 +28,9 @@ describe("Test Contact Us form via WebdriverUni", () => {
 
     it("Should NOT be able to submit a successful submission via contact us form as all fields are required", () => {
         //cypress code
-        cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
+        //cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
+        cy.visit('http://webdriveruniversity.com');
+        cy.get('#contact-us').click({force:true});
 
         //cy.document for <head> properties
         cy.document().should('have.property', 'charset').and('eq', 'UTF-8');

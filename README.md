@@ -1,4 +1,4 @@
-# Lecture088 - ALIAS, INVOKE, VARIABLES & ITERATION THROUGH DATA - PART3/5
+# Lecture093 - HANDLING MULTIPLE BROWSER TABS
 
 ```
 cypress
@@ -8,149 +8,59 @@ cypress
 │   ...
 └───fixtures
 │   │   file011.txt
-│   │   file012.txt
 │   │   ...
 │   
 └───integration
 │   │   
 │   └───automation-test-store
 │   |   │   alias-invoke.js
-│   |   │   contact-us.js
-│   |   │   inspect-item.js
-│   |   │   iterate-over-elements.js
-│   |   │   variables-and-cy-commands.js
+│   |   │   ...
+│   │   │   
 │   └───webdriver-university
-│       │   contact-us.js
+│       │   contact-us.js  ***
+│       │   ...
 ```
 
-1. having the following html code:
+1. having the following html code and due to target attribute with _target value, it opens in a new tab:
 ```html
-<div class="thumbnails list-inline">
-	<div class="col-md-3 col-sm-6 col-xs-12">
-    	<div class="fixed_wrapper">
-			<div class="fixed">
-				<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;product_id=50" title="Skinsheen Bronzer Stick">Skinsheen Bronzer Stick</a>
+<div class="col-sm-12 col-lg-8 col-md-8">
+	<a href="Contact-Us/contactus.html" target="_blank" id="contact-us">
+		<div class="thumbnail">
+			<div class="section-title">
+				<h1>CONTACT US</h1>
+			</div>
+
+			<div class="caption">
+				.....
 			</div>
 		</div>
-		<div class="thumbnail" style="">
-			<div class="pricetag jumbotron">
-				<div class="price">
-			    	<div class="oneprice">$29.50</div>
-			    </div>
-		    </div>
-        </div>
-	</div>
-
-    <div class="col-md-3 col-sm-6 col-xs-12">
-    	<div class="fixed_wrapper">
-			<div class="fixed">
-				<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;product_id=51" title="BeneFit Girl Meets Pearl">BeneFit Girl Meets Pearl</a>
-			</div>
-		</div>
-
-        <div class="thumbnail" style="">
-        	<div class="blurb"></div>
-			<div class="pricetag jumbotron">
-				<div class="price">
-					<div class="pricenew">$19.00</div>
-					<div class="priceold">$30.00</div>
-				</div>
-			</div>
-		</div>
-    </div>
-
-    <div class="col-md-3 col-sm-6 col-xs-12">
-		<div class="fixed_wrapper">
-			<div class="fixed">
-				<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;product_id=52" title="Benefit Bella Bamba">Benefit Bella Bamba</a>
-			</div>
-        </div>
-
-        <div class="thumbnail" style="">
-            <div class="blurb"></div>
-				<div class="pricetag jumbotron">
-					<div class="price">
-						<div class="oneprice">$28.00</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-    <div class="col-md-3 col-sm-6 col-xs-12">
-		<div class="fixed_wrapper">
-			<div class="fixed">
-				<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;product_id=53" title="Tropiques Minerale Loose Bronzer">Tropiques Minerale Loose Bronzer</a>
-			</div>
-		</div>
-
-		<div class="thumbnail" style="">
-			<div class="pricetag jumbotron">
-				<div class="price">
-					<div class="oneprice">$38.50</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="col-md-3 col-sm-6 col-xs-12">
-	<div class="fixed_wrapper">
-		<div class="fixed">
-			<a class="prdocutname" href="https://automationteststore.com/index.php?rt=product/product&amp;product_id=67" title="Flash Bronzer Body Gel">Flash Bronzer Body Gel</a>
-		</div>
-	</div>
-
-	<div class="thumbnail">
-		<div class="blurb"></div>
-		<div class="pricetag jumbotron">
-			<span class="nostock">Out of Stock</span>
-			<div class="price">
-				<div class="pricenew">$29.00</div>
-				<div class="priceold">$34.50</div>
-			</div>
-		</div>
-	</div>
+	</a>
 </div>
 ```
 
-2. alias, invoke, iteretion with a for loop and logs:
-
+2. Dealing with multiple browser tabs:
 ```javascript
-it.only("Calculate Total of normal and sale products", () => {
-    cy.visit("https://automationteststore.com/");
-    cy.get('.thumbnail').as('productThumbnail');
+it("Should be able to submit a successful submission via contact us form", () => {
+    //cypress code
+    cy.visit('http://webdriveruniversity.com');
+    cy.get('#contact-us').click({force:true});
 
-	//alias to item price:
-    cy.get('@productThumbnail').find('.oneprice').invoke('text').as('itemPrice');
-    cy.get('@productThumbnail').find('.pricenew').invoke('text').as('saleItemPrice');
+	//**********FAILED FROM THIS PART => NEW TAB IS OPEN*******************
+    //cy.document for <head> properties
+    cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
 
-        var itemsTotal = 0;
-    cy.get('@itemPrice').then($linkText => {
-        var itemsPriceTotal = 0;
-        var itemPrice = $linkText.split('$');
-        var i;
-        for(i = 0; i < itemPrice.length; i++){
-            cy.log(itemPrice[i]);
-            itemsPriceTotal += Number(itemPrice[i]);           
-        }
-        itemsTotal += itemsPriceTotal;
-        cy.log('Non sale price item total: ' + itemsPriceTotal);
-    });
+    //cy.url()
+    cy.url().should('include', 'contactus');
 
-    cy.get('@saleItemPrice').then($linkText => {
-        var saleItemsPrice = 0;
-        var saleItemPrice = $linkText.split('$');
-        var i;
-        for(i = 0; i < saleItemPrice.length; i++){
-            cy.log(saleItemPrice[i]);
-            saleItemsPrice += Number(saleItemPrice[i]);           
-        };
-        itemsTotal += saleItemsPrice;
-        cy.log("Sale price items total: " + saleItemsPrice);
-    })
-    .then(() => {
-        cy.log("The total price of all products: " + itemsTotal);
-        expect(itemsTotal).to.equal(654.1); 
-    })
+    //cy.title:
+    cy.title().should('include', 'WebDriver | Contact Us');
+
+    cy.get('[name="first_name"]').type("Joe Francesco");
+    cy.get('[name="last_name"]').type('Mastropiero');
+    cy.get('[name="email"]').type("joefran@mastropiero.com");
+    cy.get('textarea.feedback-input').type("Text area will be completed in the future....");
+    cy.get('[type="submit"]').click();
+    //assertion for the title getting the text:
+    cy.get('h1').should('have.text', 'Thank You for your Message!');
 });
 ```
