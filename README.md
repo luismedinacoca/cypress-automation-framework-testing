@@ -38,15 +38,19 @@ cypress
 </div>
 ```
 
-2. Dealing with multiple browser tabs:
+2. Struggling with multiple broswser tab finished - adding the invoke('removeAttr', 'attribute'):
+```javascript
+	 cy.get('#contact-us').invoke('removeAttr', 'target').click({force:true});
+```
+
+
 ```javascript
 it("Should be able to submit a successful submission via contact us form", () => {
     //cypress code
     cy.visit('http://webdriveruniversity.com');
-    cy.get('#contact-us').click({force:true});
+    cy.get('#contact-us').invoke('removeAttr', 'target').click({force:true});
 
-	//**********FAILED FROM THIS PART => NEW TAB IS OPEN*******************
-    //cy.document for <head> properties
+	//cy.document for <head> properties
     cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
 
     //cy.url()

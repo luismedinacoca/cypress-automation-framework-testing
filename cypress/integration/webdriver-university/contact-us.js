@@ -5,7 +5,7 @@ describe("Test Contact Us form via WebdriverUni", () => {
         //cypress code
         //cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
         cy.visit('http://webdriveruniversity.com');
-        cy.get('#contact-us').click({force:true});
+        cy.get('#contact-us').invoke('removeAttr', 'target').click({force:true});
 
 
         //cy.document for <head> properties
@@ -30,7 +30,7 @@ describe("Test Contact Us form via WebdriverUni", () => {
         //cypress code
         //cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
         cy.visit('http://webdriveruniversity.com');
-        cy.get('#contact-us').click({force:true});
+        cy.get('#contact-us').invoke('removeAttr', 'target').click({force:true});
 
         //cy.document for <head> properties
         cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
