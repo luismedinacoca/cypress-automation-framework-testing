@@ -9,6 +9,5 @@ describe("Cypress web security", () => {
     it.only("Validate visiting two different domains via user actions", () => {
         cy.visit('https://webdriveruniversity.com/');
         cy.get('#automation-test-store').invoke('removeAttr', 'target').click();
-        cy.visit('https://automationteststore.com/');
     });
 })

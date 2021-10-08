@@ -1,4 +1,4 @@
-# Lecture094 - SAME ORIGIN POLICY PART 1/2
+# Lecture099 - BACK, FORWARD, RELOAD
 
 ```
 cypress
@@ -17,27 +17,55 @@ cypress
 │   |   │   ...
 │   │   
 │   └───other
-│   |   │   same-origin-policy.js ***
+│   |   │   same-origin-policy.js
 │   │ 
 │   └───webdriver-university
 │       │   contact-us.js
+│       │   browser-navigation.js  ****
 │       │   ...
 ```
 
-1. Trying to access to two different domains - cypress limitation:
-
+1. navigate back page:
 ```javascript
-describe("Cypress web security", () => {
-    it("Validate visiting two different domains", () => {
-        cy.visit('https://webdriveruniversity.com/');
-        cy.visit('https://automationteststore.com/');
-    });
-
-    it.only("Validate visiting two different domains via user actions", () => {
-        cy.visit('https://webdriveruniversity.com/');
-        cy.get('#automation-test-store').invoke('removeAttr', 'target').click();
-        cy.visit('https://automationteststore.com/');
-    });
-})
+	cy.go('back');
 ```
-they failed!
+
+2. navigate foward page:
+```javascript
+	cy.go('forward');
+```
+
+3. reload page:
+```javascript
+	cy.reload();
+	cy.reload(true) //reload without using cache
+```
+
+4. Whole code with many back, reload and fowrad:
+```javascript
+it("Confirm links redirect to hte correct pages", () => {
+    cy.visit('https://webdriveruniversity.com/');
+    cy.get('#contact-us').invoke('removeAttr', 'target').click({force: true});
+
+	//validate contact us page link
+    cy.url().should('include', 'Contact-Us/contactus');
+
+    cy.go('back');
+    cy.url().should('include', 'https://webdriveruniversity.com/');
+
+    //cy.reload(true); //reload without using cache
+    cy.reload();
+
+    cy.go('forward');
+    cy.url().should('include', 'Contact-Us/contactus');
+    cy.go('back');
+
+    cy.get('#login-portal').invoke('removeAttr', 'target').click({force: true});
+    cy.url().should('include', 'Login-Portal');
+    cy.go('back');
+
+    cy.get('#to-do-list').invoke('removeAttr', 'target').click({force: true});
+    cy.url().should('include', '/To-Do-List');
+    cy.go('back');
+    })
+```
