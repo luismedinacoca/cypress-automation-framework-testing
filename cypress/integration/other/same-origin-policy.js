@@ -10,4 +10,4 @@ describe("Cypress web security", () => {
         cy.visit('https://webdriveruniversity.com/');
         cy.get('#automation-test-store').invoke('removeAttr', 'target').click();
     });
-})
+})  

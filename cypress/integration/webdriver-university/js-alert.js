@@ -1,56 +1,6 @@
-# Lecture099 - BACK, FORWARD, RELOAD
+/// <reference types="cypress" />
 
-```
-cypress
-│   README.md
-|   cypress.json
-│   package.json    
-│   ...
-└───fixtures
-│   │   file011.txt
-│   │   ...
-│   
-└───integration
-│   │   
-│   └───automation-test-store
-│   |   │   alias-invoke.js
-│   |   │   ...
-│   │   
-│   └───other
-│   |   │   same-origin-policy.js
-│   │ 
-│   └───webdriver-university
-│       │   contact-us.js
-│       │   browser-navigation.js  
-│       │   js-alert.js  ****
-│       │   ...
-```
-
-1. handling alert with 'OK' button only:
-```javascript
-cy.on('window:alert', (str) => {
-	//assertion with the text:
-    expect(str).to.equal('I am an alert box!');
-});
-```
-
-2. Handling alert with 'Cancel | OK' buttons:
-```javascript
-cy.on('window:confirm', () => {
-    return true;  //'true' for 'OK' and 'false' for 'Cancel'
-});
-cy.get('#confirm-alert-text').contains('You pressed OK!');
-```
-
-```javascript
-cy.on('window:confirm', () => {
-    return false;  //'true' for 'OK' and 'false' for 'Cancel'
-});
-cy.get('#confirm-alert-text').contains('You pressed Cancel!');
-```
-
-4. Whole code with alerts:
-```javascript
+describe("Handle JS alerts", () => {
     it("Confirm JS alert contains the correct text", () => {
         cy.visit('https://webdriveruniversity.com/');
         cy.get('#popup-alerts').invoke('removeAttr', 'target').click({force: true});
@@ -89,5 +39,5 @@ cy.get('#confirm-alert-text').contains('You pressed Cancel!');
         });
         //assertion
         cy.get('#confirm-alert-text').contains('You pressed Cancel!');
-	});
-```
+    });
+})
