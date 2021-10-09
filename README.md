@@ -1,4 +1,4 @@
-# Lecture099 - BACK, FORWARD, RELOAD
+# Lecture100 - ALERT AND CONFIRM ALERT
 
 ```
 cypress
