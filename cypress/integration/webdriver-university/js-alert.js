@@ -41,7 +41,7 @@ describe("Handle JS alerts", () => {
         cy.get('#confirm-alert-text').contains('You pressed Cancel!');
     });
 
-    it.only("Validate js confirm alert box using a stub", () => {
+    it("Validate js confirm alert box using a stub", () => {
         cy.visit('https://webdriveruniversity.com/');
         cy.get('#popup-alerts').invoke('removeAttr', 'target').click({force: true});
 
