@@ -1,4 +1,4 @@
-# Lecture100 - ALERT AND CONFIRM ALERT
+# Lecture108 - HANDLING ALERT WITH STUB
 
 ```
 cypress
@@ -26,20 +26,17 @@ cypress
 │       │   ...
 ```
 
-1. handling alert with 'OK' button only:
+1. handling alert with STUB:
 ```javascript
-cy.on('window:alert', (str) => {
-	//assertion with the text:
-    expect(str).to.equal('I am an alert box!');
-});
+const stub = cy.stub();
+cy.on('window:confirm', stub);
 ```
 
-2. Handling alert with 'Cancel | OK' buttons:
+2. Assertion with stub:
 ```javascript
-cy.on('window:confirm', () => {
-    return true;  //'true' for 'OK' and 'false' for 'Cancel'
-});
-cy.get('#confirm-alert-text').contains('You pressed OK!');
+cy.get('#button4').click().then( () => {
+    expect(stub.getCall(0)).to.be.calledWith('Press a button!');
+})
 ```
 
 ```javascript
