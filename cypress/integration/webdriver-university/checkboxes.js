@@ -18,4 +18,12 @@ describe("Verify checkboxes via WebdriverUniversity", () => {
         //cy.get('@option-1').check();
         cy.get('@option-1').check().should('be.checked');
     });
+
+    it.only("Uncheck and validate checkbox", () => {
+        cy.visit('http://webdriveruniversity.com');
+        cy.get('#dropdown-checkboxes-radiobuttons').invoke('removeAttr', 'target').click({force:true});
+
+        cy.get(':nth-child(5) > input').as('option-3');
+        cy.get('@option-3').uncheck().should('not.be.checked');
+    });
 })
