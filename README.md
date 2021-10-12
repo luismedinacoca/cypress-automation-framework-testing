@@ -1,4 +1,4 @@
-# Lecture115 - HANDLING CHECKBOXES - MULTIPLE CHECKBOXES
+# Lecture116 - HANDLING RADIO BUTTONS
 
 ```
 cypress
@@ -24,28 +24,27 @@ cypress
 │       │   browser-navigation.js  
 │       │   js-alert.js  
 │       │   iframe.js  
-│       │   checkboxes.js  ****
+│       │   checkboxes.js
+│       │   radio-buttons.js  ****
 │       │   ...
 ```
 1. Since the html code:
 ```html
-<div class="section-title" id="checkboxes">
-    <label>
-		<input type="checkbox" value="option-1">Option 1
-	</label><br>
-    <label>
-		<input type="checkbox" value="option-2">Option 2
-	</label><br>
-    <label>
-		<input type="checkbox" value="option-3" checked="">Option 3
-	</label><br>
-    <label>
-		<input type="checkbox" value="option-4">Option 4
-	</label>
-</div>
+<form action="" class="radio-buttons" id="radio-buttons" style="">
+    <input type="radio" name="color" value="green">Green<br>
+    <input type="radio" name="color" value="blue">Blue<br>
+    <input type="radio" name="color" value="yellow">Yellow<br>
+	<input type="radio" name="color" value="orange">Orange<br>
+    <input type="radio" name="color" value="purple">Purple
+</form>
 ```
 
-2. Check mutiple checkboxes:
+2. Check first radio button element:
 ```javascript
-cy.get('#checkboxes > :nth-child(5) > input').check(["option-1", "option-2", "option-3", "option-4"]);
+cy.get('#radio-buttons').find("[type='radio']").first().check();
+```
+
+3. Check second radio button element:
+```javascript
+cy.get('#radio-buttons').find("[type='radio']").eq(2).check();
 ```
