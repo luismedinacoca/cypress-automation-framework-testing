@@ -1,4 +1,4 @@
-# Lecture114 - HANDLING CHECKBOXES - UNCHECKED
+# Lecture115 - HANDLING CHECKBOXES - MULTIPLE CHECKBOXES
 
 ```
 cypress
@@ -27,8 +27,25 @@ cypress
 │       │   checkboxes.js  ****
 │       │   ...
 ```
+1. Since the html code:
+```html
+<div class="section-title" id="checkboxes">
+    <label>
+		<input type="checkbox" value="option-1">Option 1
+	</label><br>
+    <label>
+		<input type="checkbox" value="option-2">Option 2
+	</label><br>
+    <label>
+		<input type="checkbox" value="option-3" checked="">Option 3
+	</label><br>
+    <label>
+		<input type="checkbox" value="option-4">Option 4
+	</label>
+</div>
+```
 
-1. Uncheck a checkbox:
+2. Check mutiple checkboxes:
 ```javascript
-cy.get('#checkboxes > :nth-child(5) > input').uncheck();
+cy.get('#checkboxes > :nth-child(5) > input').check(["option-1", "option-2", "option-3", "option-4"]);
 ```
