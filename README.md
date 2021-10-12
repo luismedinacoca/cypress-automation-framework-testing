@@ -1,4 +1,4 @@
-# Lecture116 - HANDLING RADIO BUTTONS
+# Lecture117 - VALIDATING STATE OF RADIO BUTTONS (CHECKED & UNCHECKED)
 
 ```
 cypress
@@ -30,21 +30,19 @@ cypress
 ```
 1. Since the html code:
 ```html
-<form action="" class="radio-buttons" id="radio-buttons" style="">
-    <input type="radio" name="color" value="green">Green<br>
-    <input type="radio" name="color" value="blue">Blue<br>
-    <input type="radio" name="color" value="yellow">Yellow<br>
-	<input type="radio" name="color" value="orange">Orange<br>
-    <input type="radio" name="color" value="purple">Purple
+<form action="" class="radio-buttons" id="radio-buttons-selected-disabled">
+	<input type="radio" name="vegetable" value="lettuce">Lettuce<br>
+    <input type="radio" name="vegetable" value="cabbage" disabled="">Cabbage<br>
+    <input type="radio" name="vegetable" value="pumpkin" checked="">Pumpkin
 </form>
 ```
+our selector shouls be:
+[value='lettuce']
+[value='pumpkin']
 
-2. Check first radio button element:
-```javascript
-cy.get('#radio-buttons').find("[type='radio']").first().check();
-```
 
-3. Check second radio button element:
+2. Check a radio button element:
 ```javascript
-cy.get('#radio-buttons').find("[type='radio']").eq(2).check();
+cy.get("[value='lettuce']").check().should('be.checked');
+cy.get("[value='pumpkin']").should('not.be.checked');
 ```
