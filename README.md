@@ -1,4 +1,4 @@
-# Lecture117 - VALIDATING STATE OF RADIO BUTTONS (CHECKED & UNCHECKED)
+# Lecture119 - HANDLING DROPDOWN LISTS
 
 ```
 cypress
@@ -25,24 +25,40 @@ cypress
 │       │   js-alert.js  
 │       │   iframe.js  
 │       │   checkboxes.js
-│       │   radio-buttons.js  ****
+│       │   radio-buttons.js
+│       │   select-dropdown-list.js  ****
 │       │   ...
 ```
 1. Since the html code:
 ```html
-<form action="" class="radio-buttons" id="radio-buttons-selected-disabled">
-	<input type="radio" name="vegetable" value="lettuce">Lettuce<br>
-    <input type="radio" name="vegetable" value="cabbage" disabled="">Cabbage<br>
-    <input type="radio" name="vegetable" value="pumpkin" checked="">Pumpkin
-</form>
+<div class="section-title">
+    <select class="dropdown-menu-lists" id="dropdowm-menu-1">
+        <option value="java">JAVA</option>
+        <option value="c#">C#</option>
+        <option value="python">Python</option>
+        <option value="sql">SQL</option>
+    </select>
+
+    <select class="dropdown-menu-lists" id="dropdowm-menu-2">
+        <option value="eclipse">Eclipse</option>
+        <option value="maven">Maven</option>
+        <option value="testng">TestNG</option>
+        <option value="junit">JUnit</option>
+    </select>
+
+    <select class="dropdown-menu-lists" id="dropdowm-menu-3">
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="javascript">JavaScript</option>
+        <option value="jquery">JQuery</option>
+    </select>
+</div>
 ```
-our selector shouls be:
-[value='lettuce']
-[value='pumpkin']
 
-
-2. Check a radio button element:
+2. Select an option from each dropdown list:
 ```javascript
-cy.get("[value='lettuce']").check().should('be.checked');
-cy.get("[value='pumpkin']").should('not.be.checked');
+cy.get('#dropdowm-menu-1').select('c#')
+//assertion of selected value:
+cy.get('#dropdowm-menu-2').select('testng').should('have.value', 'testng');
+cy.get('#dropdowm-menu-3').select('jquery').contains('JQuery');
 ```
