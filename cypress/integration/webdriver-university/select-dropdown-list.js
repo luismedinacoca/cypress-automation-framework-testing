@@ -7,7 +7,7 @@ describe("Interact with dropdown lists via webdriveruni", () => {
 
         cy.wait(1500);
 
-        cy.get('#dropdowm-menu-1').select('c#')
+        cy.get('#dropdowm-menu-1').select('c#');
         cy.get('#dropdowm-menu-2').select('testng').should('have.value', 'testng');
         cy.get('#dropdowm-menu-3').select('jquery').contains('JQuery');
     });

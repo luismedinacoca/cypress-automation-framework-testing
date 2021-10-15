@@ -1,4 +1,4 @@
-# Lecture119 - HANDLING DROPDOWN LISTS
+# Lecture122 - AUTOCOMPLETE DROPDOWN LISTS
 
 ```
 cypress
@@ -7,7 +7,6 @@ cypress
 │   package.json    
 │   ...
 └───fixtures
-│   │   file011.txt
 │   │   ...
 │   
 └───integration
@@ -20,45 +19,65 @@ cypress
 │   |   │   same-origin-policy.js
 │   │ 
 │   └───webdriver-university
-│       │   contact-us.js
+│       │   autocomplete-dropdown-list.js ****  
 │       │   browser-navigation.js  
-│       │   js-alert.js  
-│       │   iframe.js  
 │       │   checkboxes.js
+│       │   contact-us.js
+│       │   iframe.js  
+│       │   js-alert.js  
 │       │   radio-buttons.js
-│       │   select-dropdown-list.js  ****
+│       │   select-dropdown-list.js
 │       │   ...
 ```
 1. Since the html code:
 ```html
-<div class="section-title">
-    <select class="dropdown-menu-lists" id="dropdowm-menu-1">
-        <option value="java">JAVA</option>
-        <option value="c#">C#</option>
-        <option value="python">Python</option>
-        <option value="sql">SQL</option>
-    </select>
-
-    <select class="dropdown-menu-lists" id="dropdowm-menu-2">
-        <option value="eclipse">Eclipse</option>
-        <option value="maven">Maven</option>
-        <option value="testng">TestNG</option>
-        <option value="junit">JUnit</option>
-    </select>
-
-    <select class="dropdown-menu-lists" id="dropdowm-menu-3">
-        <option value="html">HTML</option>
-        <option value="css">CSS</option>
-        <option value="javascript">JavaScript</option>
-        <option value="jquery">JQuery</option>
-    </select>
+<div id="myInputautocomplete-list" class="autocomplete-items">
+    <div>
+        <strong>A</strong>sparagus
+        <input type="hidden" value="Asparagus">
+    </div>
+    
+    <div>
+        <strong>A</strong>vacado
+        <input type="hidden" value="Avacado">
+    </div>
+    
+    <div>
+        <strong>A</strong>lmond
+        <input type="hidden" value="Almond">
+    </div>
+    
+    <div>
+        <strong>A</strong>rtichoke
+        <input type="hidden" value="Artichoke">
+    </div>
+    
+    <div>
+        <strong>A</strong>pple
+        <input type="hidden" value="Apple">
+    </div>
 </div>
 ```
 
 2. Select an option from each dropdown list:
 ```javascript
-cy.get('#dropdowm-menu-1').select('c#')
-//assertion of selected value:
-cy.get('#dropdowm-menu-2').select('testng').should('have.value', 'testng');
-cy.get('#dropdowm-menu-3').select('jquery').contains('JQuery');
+it("Select specific product via autocomplete list", () => {
+    cy.visit('http://webdriveruniversity.com');
+    cy.get('#autocomplete-textfield').invoke('removeAttr', 'target').click({force:true});
+
+    cy.get('#myInput').type('A');
+
+    cy.get('#myInputautocomplete-list > *').each(($el, index, $list) => {
+        const prod = $el.text();
+        const productToSelect = 'Avacado';
+
+        if(prod === productToSelect){
+            //$el.click();   => should be this way but $el.click() is deprecated
+            $el.trigger("click");
+
+            cy.get('#submit-button').click();
+            cy.url().should('include', productToSelect);
+        }
+    })
+});
 ```
