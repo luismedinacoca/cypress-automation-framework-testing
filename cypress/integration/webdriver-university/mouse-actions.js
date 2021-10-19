@@ -47,4 +47,13 @@ describe("Test mouse actions", () => {
 
         cy.get('#droppable').trigger('mousemove').trigger('mouseup', {force: true});
     });
+
+    it("I should be able to perfome a double mouse click", () => {
+        cy.visit('http://webdriveruniversity.com');
+        cy.get('#actions').invoke('removeAttr', 'target').click({force:true});
+
+        cy.get('#double-click').scrollIntoView();
+        cy.wait(1000);
+        cy.get('#double-click').dblclick();
+    });
 })
