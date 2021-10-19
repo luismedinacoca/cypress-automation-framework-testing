@@ -1,37 +1,5 @@
-# Lecture127 - SCROLL INTO VIEW
+/// <reference types="cypress" />
 
-```
-cypress
-│   README.md
-|   cypress.json
-│   package.json    
-│   ...
-└───fixtures
-│   │   ...
-│   
-└───integration
-│   │   
-│   └───automation-test-store
-│   |   │   alias-invoke.js
-│   |   │   ...
-│   │   
-│   └───other
-│   |   │   same-origin-policy.js
-│   │ 
-│   └───webdriver-university
-│       │   autocomplete-dropdown-list.js  
-│       │   browser-navigation.js  
-│       │   checkboxes.js
-│       │   contact-us.js
-│       │   iframe.js  
-│       │   js-alert.js
-│       │   mouse-actions.js ****  
-│       │   radio-buttons.js
-│       │   select-dropdown-list.js
-│       │   ...
-```
-1. Scroll each option:
-```javascript
 describe("Test mouse actions", () => {
     it("Scroll element into view", () => {
         cy.visit('http://webdriveruniversity.com');
@@ -71,4 +39,3 @@ describe("Test mouse actions", () => {
         
     });
 })
-```
