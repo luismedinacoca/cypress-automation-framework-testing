@@ -1,4 +1,4 @@
-# Lecture127 - SCROLL INTO VIEW
+# Lecture128 - DRAG AND DROP:
 
 ```
 cypress
@@ -30,45 +30,29 @@ cypress
 │       │   select-dropdown-list.js
 │       │   ...
 ```
-1. Scroll each option:
+1. since html code:
+```html
+<div class="col-lg-6 text-center">
+    <div class="thumbnail" id="div-drag-drop-thumbnail">
+        <div id="draggable" class="ui-widget-content ui-draggable ui-draggable-handle" style="position: relative;">
+            <p><b>DRAG ME TO MY TARGET!</b></p>
+        </div>
+        
+        <div id="droppable" class="ui-widget-header ui-droppable">
+            <p><b>DROP HERE!</b></p>
+        </div>
+    </div>
+</div>
+```
+
+2. Drag and drop coding:
 ```javascript
-describe("Test mouse actions", () => {
-    it("Scroll element into view", () => {
-        cy.visit('http://webdriveruniversity.com');
-        //cy.get('#actions').invoke('removeAttr', 'target').click({force:true});
-        cy.get('#contact-us').as('contactUs').scrollIntoView().then(() => {
-            const text = cy.get('@contactUs').find('h1');
-            cy.log(text);
-        });
-        
-        cy.wait(1000);
+it("I should be able to drag and drop a draggable item", () => {
+    cy.visit('http://webdriveruniversity.com');
+    cy.get('#actions').invoke('removeAttr', 'target').click({force:true});
 
-        cy.get('#button-clicks').as('buttons').scrollIntoView().then(() => {
-            const text = cy.get('@buttons').find('h1');
-            cy.log(text);
-        });
+    cy.get('#draggable').trigger('mousedown', {which: 1});
 
-        cy.wait(1000);
-
-        cy.get('#page-object-model').as('pom').scrollIntoView().then(() => {
-            const text = cy.get('@pom').find('h1');
-            cy.log(text);
-        });
-
-        cy.wait(1000);
-
-        cy.get('#dropdown-checkboxes-radiobuttons').as('dropdown').scrollIntoView().then(() => {
-            const text = cy.get('@dropdown').find('h1');
-            cy.log(text);
-        });
-
-        cy.wait(1000);
-
-        cy.get('#actions').as('actions').scrollIntoView().then(() => {
-            const text = cy.get('@actions').find('h1');
-            cy.log(text);
-        });
-        
-    });
+    cy.get('#droppable').trigger('mousemove').trigger('mouseup', {force: true});
 })
 ```
