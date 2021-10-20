@@ -1,4 +1,4 @@
-# Lecture134 - EQ()
+# Lecture135 - FILTER()
 
 ```
 cypress
@@ -33,18 +33,17 @@ cypress
 ```
 1. since html code:
 ```html
-<ul class="traversal-drinks-list">
-    <li id="coffee" style="">Coffee</li>
-    <li id="tea" style="">Tea</li>
-    <li id="milk" style="">Milk</li>
-    <li id="espresso" style="">Espresso</li>
-    <li id="sugar" style="">Sugar</li>
-</ul>
+<div class="btn-group btn-group-toggle" data-toggle="buttons" style="">
+    <button type="button" class="btn btn-primary active" style="">Button-1</button>
+    <button type="button" class="btn btn-primary" style="">Button-2</button>
+    <button type="button" class="btn btn-primary" style="">Button-3</button>
+    <button type="button" class="btn btn-primary" style="">Button-4</button>
+</div>
 ```
 
-2. Select element from a list through eq():
+2. Select element from a list through filter():
 ```javascript
-cy.get('.traversal-drinks-list > *').eq(NUMBER);
+cy.get('.btn-group-toggle > *').filter('.active');
 ```
 Remember index starts from "0" to "list length - 1".
 
@@ -56,8 +55,8 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
 
-    it.only("eq() to retrieve a specific element based on index", () => {
-      cy.get('.traversal-drinks-list > *').eq(2).should('contain', 'Milk');
+    it("filter() to retrieve DOM elements that match a specific selector", () => {
+      cy.get('.btn-group-toggle > *').filter('.active').should('contain', 'Button-1')
     });
 });
 ```

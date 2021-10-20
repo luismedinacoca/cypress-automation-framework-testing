@@ -17,7 +17,7 @@ describe("Traversing DOM elements in Cypress", () => {
     });
   
     it("filter() to retrieve DOM elements that match a specific selector", () => {
-	
+      cy.get('.btn-group-toggle > *').filter('.active').should('contain', 'Button-1')
     });
   
     it("find() to retrieve DOM elements of a given selector", () => {
