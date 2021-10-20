@@ -13,6 +13,7 @@ describe("Traversing DOM elements in Cypress", () => {
     }); 
   
     it("eq() to retrieve a specific element based on index", () => {
+      cy.get('.traversal-drinks-list > *').eq(2).should('contain', 'Milk');
     });
   
     it("filter() to retrieve DOM elements that match a specific selector", () => {

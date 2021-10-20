@@ -1,4 +1,4 @@
-# Lecture133 - CLOSEST
+# Lecture134 - EQ()
 
 ```
 cypress
@@ -33,19 +33,20 @@ cypress
 ```
 1. since html code:
 ```html
-<div class="thumbnail">
-    <h2>Badges</h2>
-    <ul class="list-group">
-        <li class="list-group-item badge-text">Today's Deals<span class="badge badge-light">5</span></li>
-        <li class="list-group-item badge-text">All Products<span class="badge traversal-badge" style="">20</span></li>
-    </ul>
-</div>
+<ul class="traversal-drinks-list">
+    <li id="coffee" style="">Coffee</li>
+    <li id="tea" style="">Tea</li>
+    <li id="milk" style="">Milk</li>
+    <li id="espresso" style="">Espresso</li>
+    <li id="sugar" style="">Sugar</li>
+</ul>
 ```
 
-2. Assertion to the closest ancestor:
+2. Select element from a list through eq():
 ```javascript
-cy.get('.traversal-badge').closest('ul').should('have.class', 'list-group');
+cy.get('.traversal-drinks-list > *').eq(NUMBER);
 ```
+Remember index starts from "0" to "list length - 1".
 
 3. Complete Code:
 ```javascript
@@ -55,8 +56,8 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
 
-    it("closest() to validate the closest ancestor DOM element", () => {
-      cy.get('.traversal-badge').closest('ul').should('have.class', 'list-group');
-    }); 
+    it.only("eq() to retrieve a specific element based on index", () => {
+      cy.get('.traversal-drinks-list > *').eq(2).should('contain', 'Milk');
+    });
 });
 ```
