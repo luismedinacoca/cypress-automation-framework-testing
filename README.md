@@ -1,4 +1,4 @@
-# Lecture132 - CHILDREN
+# Lecture133 - CLOSEST
 
 ```
 cypress
@@ -33,18 +33,18 @@ cypress
 ```
 1. since html code:
 ```html
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb traversal-breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item"><a href="#" style="">About Us</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
-    </ol>
-</nav>
+<div class="thumbnail">
+    <h2>Badges</h2>
+    <ul class="list-group">
+        <li class="list-group-item badge-text">Today's Deals<span class="badge badge-light">5</span></li>
+        <li class="list-group-item badge-text">All Products<span class="badge traversal-badge" style="">20</span></li>
+    </ul>
+</div>
 ```
 
-2. Click on one children:
+2. Assertion to the closest ancestor:
 ```javascript
-cy.get('.traversal-breadcrumb').children('.active').should('contain', 'Contact Us');
+cy.get('.traversal-badge').closest('ul').should('have.class', 'list-group');
 ```
 
 3. Complete Code:
@@ -54,8 +54,9 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.visit("http://webdriveruniversity.com/");
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
-    it.only("children() to get the children of DOM elements", () => {
-      cy.get('.traversal-breadcrumb').children('.active').should('contain', 'Contact Us');
-    });
+
+    it("closest() to validate the closest ancestor DOM element", () => {
+      cy.get('.traversal-badge').closest('ul').should('have.class', 'list-group');
+    }); 
 });
 ```
