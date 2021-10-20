@@ -1,4 +1,4 @@
-# Lecture130 - CLICK, HOLD AND ASSERTION:
+# Lecture132 - CHILDREN
 
 ```
 cypress
@@ -25,29 +25,37 @@ cypress
 │       │   contact-us.js
 │       │   iframe.js  
 │       │   js-alert.js
-│       │   mouse-actions.js ****  
+│       │   mouse-actions.js 
 │       │   radio-buttons.js
 │       │   select-dropdown-list.js
+│       │   traversing-elements.js ***
 │       │   ...
 ```
 1. since html code:
 ```html
-<div class="col-lg-12 text-center" id="click-box" style="background: tomato; font-size: 30px;">Dont release me!!!</div>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb traversal-breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="#" style="">About Us</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+    </ol>
+</nav>
 ```
 
-2. Double click:
+2. Click on one children:
 ```javascript
-cy.get('#double-click').trigger('mousedown', {which: 1});
+cy.get('.traversal-breadcrumb').children('.active').should('contain', 'Contact Us');
 ```
 
 3. Complete Code:
 ```javascript
-it("I should be able to hold down the left mouse click button on a given item", () => {
-    cy.visit('http://webdriveruniversity.com');
-    cy.get('#actions').invoke('removeAttr', 'target').click({force:true});
-
-    cy.get('#click-box').trigger('mousedown', {which: 1}).then(($element) => {
-       expect($element).to.have.css('background-color', 'rgb(0, 255, 0)');
+describe("Traversing DOM elements in Cypress", () => {
+  beforeEach(() => {
+    cy.visit("http://webdriveruniversity.com/");
+    cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
+  })
+    it.only("children() to get the children of DOM elements", () => {
+      cy.get('.traversal-breadcrumb').children('.active').should('contain', 'Contact Us');
     });
 });
 ```
