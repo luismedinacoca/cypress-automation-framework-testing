@@ -1,4 +1,4 @@
-# Lecture135 - FILTER()
+# Lecture136 - FIND()
 
 ```
 cypress
@@ -33,19 +33,33 @@ cypress
 ```
 1. since html code:
 ```html
-<div class="btn-group btn-group-toggle" data-toggle="buttons" style="">
-    <button type="button" class="btn btn-primary active" style="">Button-1</button>
-    <button type="button" class="btn btn-primary" style="">Button-2</button>
-    <button type="button" class="btn btn-primary" style="">Button-3</button>
-    <button type="button" class="btn btn-primary" style="">Button-4</button>
-</div>
+<ul class="pagination traversal-pagination" style="outline: orange dashed 2px !important; outline-offset: -1px !important;">
+    <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">«</span>
+            <span class="sr-only">Previous</span>
+        </a>
+    </li>
+    
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+
+    <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">»</span>
+            <span class="sr-only">Next</span>
+        </a>
+    </li>
+</ul>
 ```
 
-2. Select element from a list through filter():
+2. Assertion of elements from a list through find():
 ```javascript
-cy.get('.btn-group-toggle > *').filter('.active');
+cy.get('.traversal-pagination').find('li').find('a').should('have.length', 7);
 ```
-Remember index starts from "0" to "list length - 1".
 
 3. Complete Code:
 ```javascript
@@ -55,8 +69,8 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
 
-    it("filter() to retrieve DOM elements that match a specific selector", () => {
-      cy.get('.btn-group-toggle > *').filter('.active').should('contain', 'Button-1')
+    it("find() to retrieve DOM elements of a given selector", () => {
+      cy.get('.traversal-pagination').find('li').find('a').should('have.length', 7);
     });
 });
 ```
