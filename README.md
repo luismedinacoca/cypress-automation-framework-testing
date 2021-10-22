@@ -1,4 +1,4 @@
-# Lecture138 - LAST()
+# Lecture139 - NEXTALL()
 
 ```
 cypress
@@ -33,38 +33,18 @@ cypress
 ```
 1. since html code:
 ```html
-<table class="table table-light traversal-table" style="">
-    <thead>
-        <tr class="bg-primary">
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-        </tr>
-    </thead>
-
-    <tbody style="">
-        <tr class="bg-info" style="">
-            <th scope="row">1</th>
-            <td style="">Andy</td>
-            <td style="">Otto</td>
-        </tr>
-        <tr class="bg-info" style="">
-            <th scope="row">2</th>
-            <td style="">Jacob</td>
-            <td style="">Jones</td>
-        </tr>
-        <tr class="bg-info" style="">
-            <th scope="row">3</th>
-            <td style="">Larry</td>
-            <td style="">Scott</td>
-        </tr>
-    </tbody>
-</table>
+<ul class="traversal-drinks-list">
+    <li id="coffee">Coffee</li>
+    <li id="tea">Tea</li>
+    <li id="milk">Milk</li>
+    <li id="espresso">Espresso</li>
+    <li id="sugar">Sugar</li>
+</ul>
 ```
 
-2. Last assertion element with last():
+2. NextAll() assertion elements:
 ```javascript
-cy.get('.traversal-table > tbody > tr > td').last().should('contain', 'Scott');
+cy.get('.traversal-drinks-list').contains('Tea').nextAll().should('have.length', 3);
 ```
 
 3. Complete Code:
@@ -75,8 +55,8 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
 
-    it("first() to retrieve the first DOM element within elements ", () => {
-      cy.get('.traversal-table > tbody > tr > td').last().should('contain', 'Scott');
+    it("nextAll() to get all of the next sibling DOM elements within elements", () => {
+      cy.get('.traversal-drinks-list').contains('Tea').nextAll().should('have.length', 3);
     });
 });
 ```
