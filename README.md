@@ -1,4 +1,4 @@
-# Lecture139 - NEXTALL()
+# Lecture140 - NEXTUNTIL()
 
 ```
 cypress
@@ -42,10 +42,12 @@ cypress
 </ul>
 ```
 
-2. NextAll() assertion elements:
+2. nextUntil() assertion elements:
 ```javascript
-cy.get('.traversal-drinks-list').contains('Tea').nextAll().should('have.length', 3);
+cy.get('#coffee').nextUntil('#espresso');
 ```
+
+https://docs.cypress.io/api/commands/nextuntil#Syntax
 
 3. Complete Code:
 ```javascript
@@ -55,8 +57,8 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
 
-    it("nextAll() to get all of the next sibling DOM elements within elements", () => {
-      cy.get('.traversal-drinks-list').contains('Tea').nextAll().should('have.length', 3);
+    it("nextUntil() to get all of the next sibling DOM elements within elements until another element", () => {
+      cy.get('#coffee').nextUntil('#espresso');
     });
 });
 ```
