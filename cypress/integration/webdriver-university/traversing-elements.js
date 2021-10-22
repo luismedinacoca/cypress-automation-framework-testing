@@ -20,11 +20,12 @@ describe("Traversing DOM elements in Cypress", () => {
       cy.get('.btn-group-toggle > *').filter('.active').should('contain', 'Button-1')
     });
   
-    it.only("find() to retrieve DOM elements of a given selector", () => {
+    it("find() to retrieve DOM elements of a given selector", () => {
       cy.get('.traversal-pagination').find('li').find('a').should('have.length', 7);
     });
   
-    it("first() to retrieve the first DOM element within elements ", () => {
+    it.only("first() to retrieve the first DOM element within elements ", () => {
+      cy.get('.traversal-table > tbody > tr > td').first().should('contain', 'Andy');
     });
   
     it("last() to retrieve the last DOM element within elements", () => {
@@ -44,7 +45,7 @@ describe("Traversing DOM elements in Cypress", () => {
   
     it("parents() to get parents DOM element of elements", () => {
     });
-  
+    
     it("prev() to get the previous sibling DOM element within elements", () => {
     });
   

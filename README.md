@@ -1,4 +1,4 @@
-# Lecture136 - FIND()
+# Lecture137 - FIRST()
 
 ```
 cypress
@@ -33,32 +33,38 @@ cypress
 ```
 1. since html code:
 ```html
-<ul class="pagination traversal-pagination" style="outline: orange dashed 2px !important; outline-offset: -1px !important;">
-    <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">«</span>
-            <span class="sr-only">Previous</span>
-        </a>
-    </li>
-    
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">4</a></li>
-    <li class="page-item"><a class="page-link" href="#">5</a></li>
+<table class="table table-light traversal-table" style="">
+    <thead>
+        <tr class="bg-primary">
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+        </tr>
+    </thead>
 
-    <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">»</span>
-            <span class="sr-only">Next</span>
-        </a>
-    </li>
-</ul>
+    <tbody style="">
+        <tr class="bg-info" style="">
+            <th scope="row">1</th>
+            <td style="">Andy</td>
+            <td style="">Otto</td>
+        </tr>
+        <tr class="bg-info" style="">
+            <th scope="row">2</th>
+            <td style="">Jacob</td>
+            <td style="">Jones</td>
+        </tr>
+        <tr class="bg-info" style="">
+            <th scope="row">3</th>
+            <td style="">Larry</td>
+            <td style="">Scott</td>
+        </tr>
+    </tbody>
+</table>
 ```
 
-2. Assertion of elements from a list through find():
+2. First element assertion with first():
 ```javascript
-cy.get('.traversal-pagination').find('li').find('a').should('have.length', 7);
+cy.get('.traversal-table > tbody > tr > td').first().should('contain', 'Andy');
 ```
 
 3. Complete Code:
@@ -69,8 +75,8 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
 
-    it("find() to retrieve DOM elements of a given selector", () => {
-      cy.get('.traversal-pagination').find('li').find('a').should('have.length', 7);
+    it("first() to retrieve the first DOM element within elements ", () => {
+      cy.get('.traversal-table > tbody > tr > td').first().should('contain', 'Andy');
     });
 });
 ```
