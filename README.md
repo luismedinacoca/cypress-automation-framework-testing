@@ -1,4 +1,4 @@
-# Lecture137 - FIRST()
+# Lecture138 - LAST()
 
 ```
 cypress
@@ -62,9 +62,9 @@ cypress
 </table>
 ```
 
-2. First element assertion with first():
+2. Last assertion element with last():
 ```javascript
-cy.get('.traversal-table > tbody > tr > td').first().should('contain', 'Andy');
+cy.get('.traversal-table > tbody > tr > td').last().should('contain', 'Scott');
 ```
 
 3. Complete Code:
@@ -76,7 +76,7 @@ describe("Traversing DOM elements in Cypress", () => {
   })
 
     it("first() to retrieve the first DOM element within elements ", () => {
-      cy.get('.traversal-table > tbody > tr > td').first().should('contain', 'Andy');
+      cy.get('.traversal-table > tbody > tr > td').last().should('contain', 'Scott');
     });
 });
 ```
