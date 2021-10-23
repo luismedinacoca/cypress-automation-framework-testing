@@ -1,4 +1,4 @@
-# Lecture140 - NEXTUNTIL()
+# Lecture141 - NOT()
 
 ```
 cypress
@@ -33,21 +33,18 @@ cypress
 ```
 1. since html code:
 ```html
-<ul class="traversal-drinks-list">
-    <li id="coffee">Coffee</li>
-    <li id="tea">Tea</li>
-    <li id="milk">Milk</li>
-    <li id="espresso">Espresso</li>
-    <li id="sugar">Sugar</li>
-</ul>
+<<div class="traversal-button-states">
+    <button type="button" class="btn btn-outline-danger">Danger</button>
+    <button type="button" class="btn btn-outline-warning disabled">Warning</button>
+    <button type="button" class="btn btn-outline-info">Info</button>
+    <button type="button" class="btn btn-outline-info">Alert</button>
+</div>
 ```
 
-2. nextUntil() assertion elements:
+2. not() assertion elements:
 ```javascript
-cy.get('#coffee').nextUntil('#espresso');
+cy.get('.traversal-button-states > button').not('.disabled').should('not.have.class', 'disabled');
 ```
-
-https://docs.cypress.io/api/commands/nextuntil#Syntax
 
 3. Complete Code:
 ```javascript
@@ -57,8 +54,8 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
 
-    it("nextUntil() to get all of the next sibling DOM elements within elements until another element", () => {
-      cy.get('#coffee').nextUntil('#espresso');
+    it("not() to remove DOM element(s) from the set of elements", () => {
+      cy.get('.traversal-button-states > button').not('.disabled').should('not.have.class', 'disabled');
     });
 });
 ```

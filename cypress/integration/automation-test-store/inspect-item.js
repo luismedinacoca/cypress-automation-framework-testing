@@ -23,4 +23,5 @@ describe("Inspect Automation Test Store items using chain of commands", () => {
         cy.visit("https://automationteststore.com");
         cy.get(".fixed_wrapper").find(".prdocutname").eq(0).click();
     });
+    
 })
