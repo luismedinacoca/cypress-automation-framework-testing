@@ -1,4 +1,4 @@
-# Lecture141 - NOT()
+# Lecture142 - PARENT()
 
 ```
 cypress
@@ -33,17 +33,12 @@ cypress
 ```
 1. since html code:
 ```html
-<<div class="traversal-button-states">
-    <button type="button" class="btn btn-outline-danger">Danger</button>
-    <button type="button" class="btn btn-outline-warning disabled">Warning</button>
-    <button type="button" class="btn btn-outline-info">Info</button>
-    <button type="button" class="btn btn-outline-info">Alert</button>
-</div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <mark class="traversal-mark">sed do eiusmod tempor incididunt ut labore</mark> et dolore magna aliqua. Platea dictumst quisque sagittis purus sit amet volutpat consequat.</p>
 ```
 
-2. not() assertion elements:
+2. parent() assertion elements:
 ```javascript
-cy.get('.traversal-button-states > button').not('.disabled').should('not.have.class', 'disabled');
+cy.get('.traversal-mark').parent().should('contain', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,');
 ```
 
 3. Complete Code:
@@ -54,8 +49,9 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
 
-    it("not() to remove DOM element(s) from the set of elements", () => {
-      cy.get('.traversal-button-states > button').not('.disabled').should('not.have.class', 'disabled');
+    it("parent() To get parent DOM element of elements", () => {
+      cy.get('.traversal-mark').parent().should('contain', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,');
+    });
     });
 });
 ```
