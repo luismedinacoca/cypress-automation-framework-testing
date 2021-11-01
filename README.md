@@ -1,4 +1,4 @@
-# Lecture143 - PARENTS()
+# Lecture144 - PREV()
 
 ```
 cypress
@@ -33,17 +33,18 @@ cypress
 ```
 1. since html code:
 ```html
-<div class="traversal-cite-text">
-  <blockquote>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-    <footer>Platea dictumst quisque sagittis purus sit amet <cite class="traversal-cite">volutpat consequat.</cite></footer>
-  </blockquote>
-</div>
+<ul class="traversal-drinks-list">
+  <li id="coffee">Coffee</li>
+  <li id="tea">Tea</li>
+  <li id="milk">Milk</li>
+  <li id="espresso">Espresso</li>
+  <li id="sugar">Sugar</li>
+</ul>
 ```
 
-2. parents() with tag assertion:
+2. prev() with element assertion:
 ```javascript
-cy.get('.traversal-cite').parents().should('match', 'blockquote');
+cy.get('#sugar').prev().should('contain', 'Espresso');
 ```
 
 3. Complete Code:
@@ -54,8 +55,8 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
 
-    it("parents() to get parents DOM element of elements", () => {
-      cy.get('.traversal-cite').parents().should('match', 'blockquote');
+    it("prev() to get the previous sibling DOM element within elements", () => {
+      cy.get('#sugar').prev().should('contain', 'Espresso');
     });
 });
 ```

@@ -50,11 +50,12 @@ describe("Traversing DOM elements in Cypress", () => {
     });
   
     //parents as a tag
-    it.only("parents() to get parents DOM element of elements", () => {
+    it("parents() to get parents DOM element of elements", () => {
       cy.get('.traversal-cite').parents().should('match', 'blockquote');
     });
     
-    it("prev() to get the previous sibling DOM element within elements", () => {
+    it.only("prev() to get the previous sibling DOM element within elements", () => {
+      cy.get('#sugar').prev().should('contain', 'Espresso');
     });
   
     it("prevAll() to get all previous sibling DOM elements within elements", () => {
