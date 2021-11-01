@@ -1,4 +1,4 @@
-# Lecture144 - PREV()
+# Lecture145 - PREVALL()
 
 ```
 cypress
@@ -33,18 +33,19 @@ cypress
 ```
 1. since html code:
 ```html
-<ul class="traversal-drinks-list">
-  <li id="coffee">Coffee</li>
-  <li id="tea">Tea</li>
-  <li id="milk">Milk</li>
-  <li id="espresso">Espresso</li>
-  <li id="sugar">Sugar</li>
+<ul class="traversal-job-list">
+  <li id="types-of-jobs" class="list-header">Types of Jobs</li>
+  <ul class="menu">
+    <li>Finance</li>
+    <li>Technology</li>
+    <li class="sales">Sales</li>
+  </ul>
 </ul>
 ```
 
-2. prev() with element assertion:
+2. prevAll() with element assertion:
 ```javascript
-cy.get('#sugar').prev().should('contain', 'Espresso');
+cy.get('.sales').prevAll().should('have.length', 2);
 ```
 
 3. Complete Code:
@@ -55,8 +56,8 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
 
-    it("prev() to get the previous sibling DOM element within elements", () => {
-      cy.get('#sugar').prev().should('contain', 'Espresso');
+    it("prevAll() to get all previous sibling DOM elements within elements", () => {
+      cy.get('.sales').prevAll().should('have.length', 2);
     });
 });
 ```
