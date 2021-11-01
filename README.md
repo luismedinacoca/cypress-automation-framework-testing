@@ -1,4 +1,4 @@
-# Lecture142 - PARENT()
+# Lecture143 - PARENTS()
 
 ```
 cypress
@@ -33,12 +33,17 @@ cypress
 ```
 1. since html code:
 ```html
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <mark class="traversal-mark">sed do eiusmod tempor incididunt ut labore</mark> et dolore magna aliqua. Platea dictumst quisque sagittis purus sit amet volutpat consequat.</p>
+<div class="traversal-cite-text">
+  <blockquote>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+    <footer>Platea dictumst quisque sagittis purus sit amet <cite class="traversal-cite">volutpat consequat.</cite></footer>
+  </blockquote>
+</div>
 ```
 
-2. parent() assertion elements:
+2. parents() with tag assertion:
 ```javascript
-cy.get('.traversal-mark').parent().should('contain', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,');
+cy.get('.traversal-cite').parents().should('match', 'blockquote');
 ```
 
 3. Complete Code:
@@ -49,9 +54,8 @@ describe("Traversing DOM elements in Cypress", () => {
     cy.get("#data-table").invoke("removeAttr", "target").click({ force: true });
   })
 
-    it("parent() To get parent DOM element of elements", () => {
-      cy.get('.traversal-mark').parent().should('contain', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,');
-    });
+    it("parents() to get parents DOM element of elements", () => {
+      cy.get('.traversal-cite').parents().should('match', 'blockquote');
     });
 });
 ```
