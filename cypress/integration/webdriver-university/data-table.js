@@ -21,5 +21,17 @@ describe("Handling data via webdriveruniversity", () => {
             expect(numb).to.eq(322);
         });
       });
+
+      it.only("Calculate and assert the total age of a given user based on last name", () => {
+        cy.get('#thumbnail-1 tr td:nth-child(2)').each(($el, index, $list) => {
+          const text = $el.text();
+          if(text.includes('Woods')){
+            cy.get('#thumbnail-1 tr td:nth-child(2)').eq(index).next().then(function(age) {
+              const userAge = age.text();
+              expect(userAge).to.equal("80");
+            })
+          }
+        })
+      })
   })
     
