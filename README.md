@@ -1,4 +1,4 @@
-# Lecture159 - UPLOADING FILE(S)
+# Lecture161 - HOOKS - DOCUMENTATION AND PRACTICAL EXAMPLE
 
 ```
 cypress
@@ -16,6 +16,7 @@ cypress
 │   |   │   ...
 │   │   
 │   └───other
+│   |   │   hooks.js                 ********
 │   |   │   same-origin-policy.js
 │   │ 
 │   └───webdriver-university
@@ -25,7 +26,7 @@ cypress
 │       │   contact-us.js
 │       │   data-table.js
 │       │   datepicker.js
-│       │   file-upload.js  ***
+│       │   file-upload.js
 │       │   iframe.js  
 │       │   js-alert.js
 │       │   mouse-actions.js 
@@ -35,45 +36,40 @@ cypress
 │       │   ...
 ```
 1. since this link:
-[cypress-file-uploas-npm][https://www.npmjs.com/package/cypress-file-upload]
+[Bundled Tools | cypress documentation](https://docs.cypress.io/guides/references/bundled-tools#Mocha)
+
+[Writing and organizing test | Cypress Documentation](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Hooks)
+
+
+2. Complete cypress Code:
 ```javascript
-npm install --save-dev cypress-file-upload
-```
+describe('Hooks', () => {
+  before(() => {
+    cy.log("runs once before all tests in the block");
+  })
+  
+  beforeEach(() => {
+    cy.log("runs before each test in the block"); 
+  })
+  
+  afterEach(() => {
+    cy.log("runs after each test in the block");
+  })
+  
+  after(() => {
+    cy.log("runs once after all tests in the block");
+  })
 
-2. add the following import in support/commands.js
-```
-import 'cypress-file-upload';
-```
+  it("Example test 1", () => {
+    cy.log("Example test 1")
+  })
 
-3. since html code:
-```html
-<form>
-  <h2>Please choose a file to upload:</h2>
-  <input type="file" id="myFile" name="filename">
-  <input type="submit" id="submit-button" onclick="fileSubmitted()">
-</form>
-```
+  it("Example test 2", () => {
+    cy.log("Example test 2")
+  })
 
-4. Complete cypress Code:
-```javascript
-describe("Test file upload via webdriveruniversity", () => {
-  it("Upload a file .....", () => {
-    cy.visit('http://webdriveruniversity.com');
-    cy.get('#file-upload').invoke('removeAttr', 'target').click({force:true});
-
-    cy.fixture("MacBook.png", "base64").then( fileContent => {
-      cy.get("#myFile").attachFile(
-        {
-          fileContent,
-          fileName: "MacBook.png",
-          mimeType: "image/png"
-        },
-        {
-          uploadType: "input" 
-        }
-      )
-    });
-    cy.get("#submit-button").click();
-  });
+  it("Example test 3", () => {
+    cy.log("Example test 3")
+  })
 })
 ```

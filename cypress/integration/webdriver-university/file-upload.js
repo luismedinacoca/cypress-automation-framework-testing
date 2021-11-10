@@ -19,4 +19,11 @@ describe("Test file upload via webdriveruniversity", () => {
         });
         cy.get("#submit-button").click();
     });
+
+    it("Upload no file .....", () => {
+        cy.visit('http://webdriveruniversity.com');
+        cy.get('#file-upload').invoke('removeAttr', 'target').click({force:true});
+
+        cy.get("#submit-button").click();
+    });
 })
