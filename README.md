@@ -1,4 +1,4 @@
-# Lecture162 - HOOKS - IMPROVING EXISTENT TEST
+# Lecture163 - HOOKS - IMPROVING CHECKBOXES TEST
 
 ```
 cypress
@@ -22,7 +22,7 @@ cypress
 │   └───webdriver-university
 │       │   autocomplete-dropdown-list.js  
 │       │   browser-navigation.js  
-│       │   checkboxes.js
+│       │   checkboxes.js         ********
 │       │   contact-us.js
 │       │   data-table.js
 │       │   datepicker.js
@@ -30,7 +30,7 @@ cypress
 │       │   iframe.js  
 │       │   js-alert.js
 │       │   mouse-actions.js 
-│       │   radio-buttons.js         ********
+│       │   radio-buttons.js
 │       │   select-dropdown-list.js
 │       │   traversing-elements.js
 │       │   ...
@@ -43,26 +43,25 @@ cypress
 
 2. Complete cypress Code:
 ```javascript
-describe("Verify radio buttons via WebdriverUniversity", () => {
-    before(function() {
+describe("Verify checkboxes via WebdriverUniversity", () => {
+    beforeEach( () => {
         cy.visit('http://webdriveruniversity.com');
         cy.get('#dropdown-checkboxes-radiobuttons').invoke('removeAttr', 'target').click({force:true});
     })
-    it("Check specific radio buttons", () => {
-        //check the first element radio button:
-        cy.get('#radio-buttons').find("[type='radio']").first().check();
-        cy.wait(1500);
-
-        cy.get('#radio-buttons').find("[type='radio']").eq(1).check();
+    it("Check and validate checkbox", () => {
+        cy.get('#checkboxes > :nth-child(1) > input').as('option-1');
+        //cy.get('@option-1').check();
+        cy.get('@option-1').check().should('be.checked');
     });
 
-    it("Validate the state of specific button", () => {
-        cy.get("[value='lettuce']").should('not.be.checked');
-        cy.get("[value='pumpkin']").should('be.checked');
+    it("Uncheck and validate checkbox", () => {
+        cy.get(':nth-child(5) > input').as('option-3');
+        cy.get('@option-3').uncheck().should('not.be.checked');
+    });
 
-        cy.get("[value='lettuce']").check();
-        cy.get("[value='lettuce']").should('be.checked');
-        cy.get("[value='pumpkin']").should('not.be.checked');
+    it("Check multiple checkboxes", () => {
+        //check multiple checkboxes with  check([options*])
+        cy.get("input[type='checkbox']").check(["option-1", "option-2", "option-3", "option-4"]).should('be.checked');        
     });
 })
 ```
