@@ -1,4 +1,4 @@
-# Lecture168 - ALIAS & FIXTURES
+# Lecture170 - CUSTOM COMMANDS - DOCUMENTATION & PRACTICAL EXAMPLES
 
 ```
 cypress
@@ -8,13 +8,14 @@ cypress
 │   ...
 └───fixtures
 │   │   examples.json   
-│   │   userDetails.json    *******
+│   │   userDetails.json    
 │   
 └───integration 
 │   │   
 │   └───automation-test-store
 │   |   │   alias-invoke.js
-│   |   │   contact-us.js   *************
+│   |   │   contact-us.js
+│   |   │   iterate-over-elements.js   *************
 │   |   │   ...
 │   │   
 │   └───other
@@ -36,41 +37,63 @@ cypress
 │       │   select-dropdown-list.js
 │       │   traversing-elements.js
 │       │   ...
+└───support
+│   │   commands.js   *******
+│   |   │   ...
 ```
 1. since this link:
-[Fixture | cypress documentation](https://docs.cypress.io/api/commands/fixture#Syntax)
+[Custom Commands | cypress documentation](https://docs.cypress.io/api/cypress-api/custom-commands#Syntax)
 
 2. Modify fixtures/example.json which some data are taken from:
-```json
-{
-    "email": "bruno_ramses@automationteststore.com",
-    "first_name": "bruno"
-}
+```javascript
+// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
+Cypress.Commands.add("selectProduct", productName => {
+    cy.get('.fixed_wrapper .prdocutname').each(($el, index, $list) => {
+        // conditional assessment
+        if($el.text().includes(productName)){
+            cy.wrap($el).click();
+        }
+    });
+})
 ```
 
 3. Complete cypress Code:
 ```javascript
-describe("Test Contact Us from via Automation Test Store", () => {
-    before(function(){
-        cy.fixture('userDetails').as('user');
-    })
-    it("Should be able to submit a successful submission via contact us form", () => {
+describe("Iterate over elements", () => {
+    it("Log information of all hair care products", () => {
         cy.visit("https://automationteststore.com");
-        cy.get("a[href$='contact']").click().then(function(linktext){
-            cy.log(">>>> Clicked on link using text: " + linktext.text());
-        });
+        cy.get("a[href*='category&path=']").contains("Hair Care").click();
 
-        //alias & fixtures
-        cy.get('@user').then((user) => {
-            cy.get('#ContactUsFrm_first_name').type(user.first_name);
-            cy.get('#ContactUsFrm_email').type(user.email);
+        cy.get('.fixed_wrapper .prdocutname').each(($el, index, $list) => {
+            // iterate in product list, getting index and element name:
+            cy.log("Index " + index + ": " + $el.text());
         })
-        
-        cy.get('#ContactUsFrm_email').should('have.attr', 'name', 'email');
-        cy.get('#ContactUsFrm_enquiry').type('Do you provide additional discount on bulk orders?');
-        cy.get("button[title='Submit']").click();
-        cy.get('.mb40 > :nth-child(3)').should('have.text', 'Your enquiry has been successfully sent to the store owner!');
-        cy.log("Test has completed");
+    });
+
+    it("Add specific product to basket", () => {
+        cy.visit("https://automationteststore.com");
+        cy.get("a[href*='category&path=']").contains("Hair Care").click();
+
+        /*
+        cy.get('.fixed_wrapper .prdocutname').each(($el, index, $list) => {
+            // conditional assessment
+            if($el.text().includes('Curls to straight Shampoo')){
+                cy.wrap($el).click();
+            }
+        }) */
+        cy.selectProduct('Curls to straight Shampoo');
+    });
+
+    it("Add another specific product to basket", () => {
+        cy.visit("https://automationteststore.com");
+        cy.get("a[href*='category&path=']").contains("Hair Care").click();
+        cy.selectProduct('Seaweed Conditioner');
+    });
+
+    it("Add 'Eau Parfumee au The vert shampoo' product to basket", () => {
+        cy.visit("https://automationteststore.com");
+        cy.get("a[href*='category&path=']").contains("Hair Care").click();
+        cy.selectProduct('Eau Parfumee au The Vert Shampoo');
     });
 })
 ```
