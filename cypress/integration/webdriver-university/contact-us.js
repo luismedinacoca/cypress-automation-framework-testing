@@ -1,6 +1,13 @@
 /// <reference types="cypress" />
 
 describe("Test Contact Us form via WebdriverUni", () => {
+before(function(){
+    cy.fixture('example').then(function(data){
+        //this.data = data;
+        globalThis.data = data;
+    })
+})
+
     it("Should be able to submit a successful submission via contact us form", () => {
         //cypress code
         //cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
@@ -17,9 +24,9 @@ describe("Test Contact Us form via WebdriverUni", () => {
         //cy.title:
         cy.title().should('include', 'WebDriver | Contact Us');
 
-        cy.get('[name="first_name"]').type("Joe Francesco");
-        cy.get('[name="last_name"]').type('Mastropiero');
-        cy.get('[name="email"]').type("joefran@mastropiero.com");
+        cy.get('[name="first_name"]').type(data.first_name);
+        cy.get('[name="last_name"]').type(data.last_name);
+        cy.get('[name="email"]').type(data.email);
         cy.get('textarea.feedback-input').type("Text area will be completed in the future....");
         cy.get('[type="submit"]').click();
         //assertion for the title getting the text:
@@ -41,8 +48,8 @@ describe("Test Contact Us form via WebdriverUni", () => {
         //cy.title:
         cy.title().should('include', 'Contact Us');
 
-        cy.get('[name="first_name"]').type("Joe Francesco");
-        cy.get('[name="last_name"]').type('Mastropiero');
+        cy.get('[name="first_name"]').type(data.first_name);
+        cy.get('[name="last_name"]').type(data.last_name);
         cy.get('textarea.feedback-input').type("Text area will be completed in the future....");
         cy.get('[type="submit"]').click();
         //adding assertion with contains method:
