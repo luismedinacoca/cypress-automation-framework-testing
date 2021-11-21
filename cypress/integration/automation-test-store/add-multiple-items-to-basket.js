@@ -17,4 +17,5 @@ describe("add multiple items to basket", () => {
             cy.addProductsToBasket(element);
         })
     })
+    
 })

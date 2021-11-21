@@ -69,6 +69,7 @@ Cypress.Commands.add("addProductsToBasket", productName => {
 ```
 
 4. callback the addProductsToBasket from a test case as follows:
+
 ```javascript
 /// <reference types="cypress" />
 
