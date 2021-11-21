@@ -28,6 +28,15 @@ Cypress.Commands.add("selectProduct", productName => {
     });
 });
 
+Cypress.Commands.add("addProductsToBasket", productName => {
+    cy.get('.fixed_wrapper .prdocutname').each(($el, index, $list) => {
+        if($el.text() === productName){
+            cy.log($el.text());
+            cy.get('.productcart').eq(index).click();
+        }
+    });
+});
+
 Cypress.Commands.add("webdriverUni_ContactForm_submission", (firstname, lastname, email, comment, $selector, textToLocate) => {
     cy.get('[name="first_name"]').type(firstname);
     cy.get('[name="last_name"]').type(lastname);
