@@ -1,4 +1,4 @@
-# Lecture178 - CYPRESS CONFIG
+# Lecture179 - IGNORE FILES
 
 ```
 cypress
@@ -44,13 +44,14 @@ cypress
 │   |   │   ...
 ```
 1. since this link: 
-[Configuration | Cypress documentation](https://docs.cypress.io/guides/references/configuration#Timeouts)
+[Configuration | Cypress documentation](https://docs.cypress.io/guides/references/configuration#Folders-Files)
 
 2. Modify cypress.json file as follow:
 ```json
 {
     "chromeWebSecurity": false,
     "defaultCommandTimeout": 10000,
-    "pageLoadTimeout": 30000
+    "pageLoadTimeout": 30000,
+    "ignoreTestFiles": "**/other/*"
 }
 ```
