@@ -1,20 +1,20 @@
-# Lecture177 - CUSTOM COMMANDS & FIXTURES - WRAP UP
+# Lecture178 - CYPRESS CONFIG
 
 ```
 cypress
 │   README.md
-|   cypress.json
+|   cypress.json   🕧
 │   package.json    
 │   ...
 └───fixtures
 │   │   examples.json   
-│   │   products.json    🕧  
+│   │   products.json      
 │   │   userDetails.json    
 │   
 └───integration 
 │   │   
 │   └───automation-test-store
-│   |   │   add-multiple-items-to-basket.js    🕧
+│   |   │   add-multiple-items-to-basket.js
 │   |   │   alias-invoke.js
 │   |   │   contact-us.js
 │   |   │   iterate-over-elements.js   
@@ -40,55 +40,17 @@ cypress
 │       │   traversing-elements.js
 │       │   ...
 └───support
-│   │   commands.js   🕧
+│   │   commands.js
 │   |   │   ...
 ```
-1. since this link:
-[Custom Commands | cypress documentation](https://docs.cypress.io/api/cypress-api/custom-commands#Syntax)
+1. since this link: 
+[Configuration | Cypress documentation](https://docs.cypress.io/guides/references/configuration#Timeouts)
 
-2. Create fixtures/products.json with the following data:
+2. Modify cypress.json file as follow:
 ```json
 {
-    "productName": [
-        "Pantene Pro-V Conditioner, Classic Care",
-        "Eau Parfumee au The Vert Shampoo",
-        "Curls to straight Shampoo"
-    ]
+    "chromeWebSecurity": false,
+    "defaultCommandTimeout": 10000,
+    "pageLoadTimeout": 30000
 }
-```
-3. Modify support/commands.js file adding a new custom function:
-```javascript
-Cypress.Commands.add("addProductsToBasket", productName => {
-    cy.get('.fixed_wrapper .prdocutname').each(($el, index, $list) => {
-        if($el.text() === productName){
-            cy.log($el.text());
-            cy.get('.productcart').eq(index).click();
-        }
-    });
-})
-```
-
-4. callback the addProductsToBasket from a test case as follows:
-
-```javascript
-/// <reference types="cypress" />
-
-describe("add multiple items to basket", () => {
-    before(function() {
-        cy.fixture("products").then(function(data){
-            globalThis.data = data;
-        })
-    })
-
-    beforeEach(function () {
-        cy.visit("https://automationteststore.com");
-        cy.get("a[href*='category&path=']").contains("Hair Care").click();
-    })
-    
-    it("Add specific item to basket", () => {
-        globalThis.data.productName.forEach(function(element){
-            cy.addProductsToBasket(element);
-        })
-    })
-})
 ```
