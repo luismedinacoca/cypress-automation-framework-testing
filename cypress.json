@@ -2,5 +2,8 @@
     "chromeWebSecurity": false,
     "defaultCommandTimeout": 10000,
     "pageLoadTimeout": 30000,
-    "ignoreTestFiles": "**/other/*"
+    "ignoreTestFiles": "**/other/*",
+    "env":{
+        "first_name" : "Sarah"
+    }
 }

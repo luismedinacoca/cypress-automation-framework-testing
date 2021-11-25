@@ -32,7 +32,7 @@ before(function(){
         cy.get('[type="submit"]').click();
         //assertion for the title getting the text:
         cy.get('h1').should('have.text', 'Thank You for your Message!');*/
-        cy.webdriverUni_ContactForm_submission(data.first_name, data.last_name, data.email, "Text area will be completed in the future....", "h1", "Thank You for your Message!");
+        cy.webdriverUni_ContactForm_submission(Cypress.env("first_name"), data.last_name, data.email, "Text area will be completed in the future....", "h1", "Thank You for your Message!");
     });
 
     it("Should NOT be able to submit a successful submission via contact us form as all fields are required", () => {
