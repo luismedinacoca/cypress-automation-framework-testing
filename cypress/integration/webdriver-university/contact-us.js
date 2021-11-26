@@ -6,24 +6,16 @@ before(function(){
         //this.data = data;
         globalThis.data = data;
     })
+});
+
+beforeEach(function() {
+    cy.visit(Cypress.env("webdriveruni_homepage") + "/Contact-Us/contactus.html")
 })
 
     it("Should be able to submit a successful submission via contact us form", () => {
-        //cypress code
-        //cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
-        cy.visit('http://webdriveruniversity.com');
-        cy.get('#contact-us').invoke('removeAttr', 'target').click({force:true});
-
-
-        //cy.document for <head> properties
         cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
-
-        //cy.url()
         cy.url().should('include', 'contactus');
-
-        //cy.title:
         cy.title().should('include', 'WebDriver | Contact Us');
-
         /*
         cy.get('[name="first_name"]').type(data.first_name);
         cy.get('[name="last_name"]').type(data.last_name);
@@ -36,20 +28,9 @@ before(function(){
     });
 
     it("Should NOT be able to submit a successful submission via contact us form as all fields are required", () => {
-        //cypress code
-        //cy.visit('http://webdriveruniversity.com/Contact-Us/contactus.html');
-        cy.visit('http://webdriveruniversity.com');
-        cy.get('#contact-us').invoke('removeAttr', 'target').click({force:true});
-
-        //cy.document for <head> properties
         cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
-
-        //cy.url()
         cy.url().should('include', '-Us/contact');
-        
-        //cy.title:
         cy.title().should('include', 'Contact Us');
-
         /*
         cy.get('[name="first_name"]').type(data.first_name);
         cy.get('[name="last_name"]').type(data.last_name);
