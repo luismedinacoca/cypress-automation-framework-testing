@@ -1,4 +1,4 @@
-# Lecture181 - ENVIRONMENT VARIABLES
+# Lecture182 - SETTING UP A BASE URL
 
 ```
 cypress
@@ -27,8 +27,8 @@ cypress
 │   └───webdriver-university
 │       │   autocomplete-dropdown-list.js  
 │       │   browser-navigation.js  
-│       │   checkboxes.js         
-│       │   contact-us.js      🕧
+│       │   checkboxes.js      🕧         
+│       │   contact-us.js
 │       │   data-table.js
 │       │   datepicker.js
 │       │   file-upload.js
@@ -43,12 +43,13 @@ cypress
 │   │   commands.js
 │   |   │   ...
 ```
-1. running from terminal after creating an env variable:
-$ ./node_modules/.bin/cypress run —browser chrome —spec relativePath_webdriver_Contact-us/contact-us.js —env first_name=newName
+1. running from terminal after creating an env variable in order to overwrite it:
+$ ./node_modules/.bin/cypress run --browser chrome --spec relativePath_webdriver_Contact-us/contact-us.js --env first_name=newName
 
-2. modifiy cypres.json file:
+2. modifiy cypres.json file adding baseUrl value:
 ```json
 {
+    "baseUrl": "http://webdriveruniversity.com",
     "chromeWebSecurity": false,
     "defaultCommandTimeout": 10000,
     "pageLoadTimeout": 30000,
@@ -61,28 +62,28 @@ $ ./node_modules/.bin/cypress run —browser chrome —spec relativePath_webdriv
 
 3. modify contact-us .js from webdriveruniversity
 ```javascript
-/// <reference types="cypress" />
-
-describe("Test Contact Us form via WebdriverUni", () => {
-before(function(){
-    cy.fixture('example').then(function(data){
-        globalThis.data = data;
+describe("Verify checkboxes via WebdriverUniversity", () => {
+    beforeEach( () => {
+        cy.visit('/');
+        cy.get('#dropdown-checkboxes-radiobuttons').invoke('removeAttr', 'target').click({force:true});
     })
-})
+    it("Check and validate checkbox", () => {
+        cy.get('#checkboxes > :nth-child(1) > input').as('option-1');
+        cy.get('@option-1').check().should('be.checked');
+    });
 
-    it("Should be able to submit a successful submission via contact us form", () => {
-        cy.visit('http://webdriveruniversity.com');
-        cy.get('#contact-us').invoke('removeAttr', 'target').click({force:true});
-        cy.document().should('have.property', 'charset').and('eq', 'UTF-8');
-        cy.url().should('include', 'contactus');
-        cy.title().should('include', 'WebDriver | Contact Us');
+    it("Uncheck and validate checkbox", () => {
+        cy.get(':nth-child(5) > input').as('option-3');
+        cy.get('@option-3').uncheck().should('not.be.checked');
+    });
 
-        cy.webdriverUni_ContactForm_submission(Cypress.env("first_name"), data.last_name, data.email, "Text area will be completed in the future....", "h1", "Thank You for your Message!");
-    })
+    it("Check multiple checkboxes", () => {
+        cy.get("input[type='checkbox']").check(["option-1", "option-2", "option-3", "option-4"]).should('be.checked');        
+    });
 })
 ```
 
-4. changing areexactly on:
+4. changing are exactly on:
 ```javascript
-cy.webdriverUni_ContactForm_submission(Cypress.env("first_name"), data.last_name, data.email, "Text area will be completed in the future....", "h1", "Thank You for your Message!");
+cy.visit('/');
 ```
