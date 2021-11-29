@@ -2,7 +2,7 @@
 
 describe("Verify checkboxes via WebdriverUniversity", () => {
     beforeEach( () => {
-        cy.navigateTo_Webdriveruniversity_Checkbox_Ppage();
+        cy.navigateTo_Webdriveruniversity_Checkbox_Page();
     })
     it("Check and validate checkbox", () => {
         //check the option 1

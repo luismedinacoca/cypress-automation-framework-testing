@@ -23,7 +23,7 @@ Cypress.Commands.add("navigateTo_Webdriveruniversity_Homepage", () => {
     cy.visit("/");
 });
 
-Cypress.Commands.add("navigateTo_Webdriveruniversity_Checkbox_Ppage", () => {
+Cypress.Commands.add("navigateTo_Webdriveruniversity_Checkbox_Page", () => {
     cy.visit("/" + "/Dropdown-Checkboxes-RadioButtons/index.html");
 });
 

@@ -64,7 +64,7 @@ Cypress.Commands.add("navigateTo_Webdriveruniversity_Checkbox_Ppage", () => {
 
 describe("Verify checkboxes via WebdriverUniversity", () => {
     beforeEach( () => {
-        cy.navigateTo_Webdriveruniversity_Checkbox_Ppage();
+        cy.navigateTo_Webdriveruniversity_Checkbox_Page();
     })
     it("Check and validate checkbox", () => {
         cy.get('#checkboxes > :nth-child(1) > input').as('option-1');
@@ -84,5 +84,5 @@ describe("Verify checkboxes via WebdriverUniversity", () => {
 
 4. changing are exactly on:
 ```javascript
-cy.navigateTo_Webdriveruniversity_Checkbox_Ppage();
+cy.navigateTo_Webdriveruniversity_Checkbox_Page();
 ```
